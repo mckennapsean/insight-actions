@@ -63,9 +63,9 @@
 
         <header class="mb-6">
             <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Insight Action Analyzer</h1>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <input type="text" id="searchInput" placeholder="Search for an action... (e.g., 'sneak', 'intimidate')" class="md:col-span-2 w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <input type="text" id="searchInput" placeholder="Search for an action... (e.g., 'sneak', 'intimidate')" class="lg:col-span-2 w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                      <div class="flex items-center">
                         <label for="targetSuccesses" class="text-sm mr-2 whitespace-nowrap">Target:</label>
                         <input type="number" id="targetSuccesses" value="1" min="1" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -78,14 +78,19 @@
                             <option value="page">Page Number</option>
                         </select>
                     </div>
+                    <button id="toggleCharacterPanel" title="Toggle Character Panel" class="flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg p-2 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </header>
 
-        <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <main id="mainContainer" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             <!-- Left Column: Character Sheet -->
-            <aside class="lg:col-span-1 bg-gray-800 p-4 rounded-lg h-fit sticky top-4">
+            <aside id="characterPanel" class="lg:col-span-1 bg-gray-800 p-4 rounded-lg h-fit sticky top-4">
                 <h2 class="text-2xl font-bold mb-4">My Character</h2>
                 <div id="characterSheet">
                     <!-- Character sheet will be dynamically generated here -->
@@ -93,7 +98,7 @@
             </aside>
 
             <!-- Right Column: Action List -->
-            <section class="lg:col-span-2">
+            <section id="actionListPanel" class="lg:col-span-2">
                 <div id="actionList" class="space-y-3">
                     <!-- Action items will be dynamically generated here -->
                 </div>
