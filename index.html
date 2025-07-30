@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insight Action Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for a better look in dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+        /* Style for the tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: max-content;
+            background-color: #111827;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid #374151;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* Simple transition for expanding rows */
+        .action-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .action-row.expanded .action-details {
+            max-height: 200px; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans antialiased">
+
+    <div id="app" class="container mx-auto p-4 md:p-6 lg:p-8">
+
+        <header class="mb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Insight Action Analyzer</h1>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input type="text" id="searchInput" placeholder="Search for an action... (e.g., 'sneak', 'intimidate')" class="md:col-span-2 w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="grid grid-cols-2 gap-4">
+                     <div class="flex items-center">
+                        <label for="targetSuccesses" class="text-sm mr-2 whitespace-nowrap">Target:</label>
+                        <input type="number" id="targetSuccesses" value="1" min="1" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="flex items-center">
+                         <label for="sortOrder" class="text-sm mr-2">Sort:</label>
+                        <select id="sortOrder" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="best">Best for Me</option>
+                            <option value="alpha">Alphabetical</option>
+                            <option value="page">Page Number</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Left Column: Character Sheet -->
+            <aside class="lg:col-span-1 bg-gray-800 p-4 rounded-lg h-fit">
+                <h2 class="text-2xl font-bold mb-4">My Character</h2>
+                <div id="characterSheet">
+                    <!-- Character sheet will be dynamically generated here -->
+                </div>
+            </aside>
+
+            <!-- Right Column: Action List -->
+            <section class="lg:col-span-2">
+                <div id="actionList" class="space-y-3">
+                    <!-- Action items will be dynamically generated here -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // --- DATA ---
+        // This section contains all the game data needed for the app.
+
+        const actionsData = [
+            { "Action": "Acrobatics Roll", "Page": 100, "Main Skill": "Agility (BC)", "Bonus Skill": "Balance (BC)", "Notes": "" },
+            { "Action": "Animal Training", "Page": 100, "Main Skill": "Convince (SO)", "Bonus Skill": "Creature Insight (RE)", "Notes": "vs. Willpower (Morale + Courage) *" },
+            { "Action": "Appraise", "Page": 100, "Main Skill": "Idea (RE)", "Bonus Skill": "any relevant Item Knowledge (KN)", "Notes": "" },
+            { "Action": "Appraise, Hunch", "Page": 101, "Main Skill": "Idea (RE)", "Bonus Skill": "Item Insight (RE)", "Notes": "" },
+            { "Action": "Armor Use", "Page": 101, "Main Skill": "Mobility (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
+            { "Action": "Autopsy", "Page": 108, "Main Skill": "Idea (RE)", "Bonus Skill": "Anatomy (KN)", "Notes": "" },
+            { "Action": "Balance Roll", "Page": 108, "Main Skill": "Balance (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
+            { "Action": "Blend In", "Page": 108, "Main Skill": "Perform (SO)", "Bonus Skill": "Talk (SO)", "Notes": "" },
+            { "Action": "Bluff", "Page": 109, "Main Skill": "Convince (SO)", "Bonus Skill": "Perform (SO)", "Notes": "vs. Sense Motive." },
+            { "Action": "Breath Holding", "Page": 110, "Main Skill": "Endurance (PF)", "Bonus Skill": "Calmness (PF)", "Notes": "" },
+            { "Action": "Butchering", "Page": 110, "Main Skill": "Crafting (BC)", "Bonus Skill": "Any Melee Weapons Knowledge (KN)", "Notes": "" },
+            { "Action": "Camouflage Roll, Disguise", "Page": 110, "Main Skill": "Camouflage (BC special)", "Bonus Skill": "Perform (SO)", "Notes": "" },
+            { "Action": "Camouflage Roll, Cloaking", "Page": 110, "Main Skill": "Camouflage (BC special)", "Bonus Skill": "Calmness (SO)", "Notes": "" },
+            { "Action": "Cant", "Page": 110, "Main Skill": "Talk (SO)", "Bonus Skill": "Code Insight (SO)", "Notes": "(hidden communication)" },
+            { "Action": "Climb Roll", "Page": 110, "Main Skill": "Mobility (BC)", "Bonus Skill": "Balance (BC)", "Notes": "" },
+            { "Action": "Code Breaking", "Page": 111, "Main Skill": "Code Insight (RE)", "Bonus Skill": "Idea (RE)", "Notes": "" },
+            { "Action": "Conceal, on Body", "Page": 111, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "" },
+            { "Action": "Conceal, in surroundings/tracks", "Page": 111, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Perception (RE)", "Notes": "" },
+            { "Action": "Cooking", "Page": 112, "Main Skill": "Crafting (BC)", "Bonus Skill": "Food (KN)", "Notes": "" },
+            { "Action": "Crafting, Alchemy", "Page": 112, "Main Skill": "Crafting (BC)", "Bonus Skill": "Alchemy (KN)", "Notes": "" },
+            { "Action": "Crafting, Item", "Page": 112, "Main Skill": "Crafting (BC)", "Bonus Skill": "any Item Knowledge (KN)", "Notes": "" },
+            { "Action": "Crafting, Magic Item", "Page": 113, "Main Skill": "Crafting (BC)", "Bonus Skill": "any Magic (KN) Skill", "Notes": "REQ. Magic Focus (RE);" },
+            { "Action": "Crafting, Poison", "Page": 114, "Main Skill": "Crafting (BC)", "Bonus Skill": "Poisons (KN)", "Notes": "" },
+            { "Action": "Crafting, Scroll", "Page": 115, "Main Skill": "Crafting (BC)", "Bonus Skill": "any Magic (KN) Skill", "Notes": "" },
+            { "Action": "Crafting, Weapon", "Page": 116, "Main Skill": "Crafting (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "" },
+            { "Action": "Crafting, Metal Armor", "Page": 116, "Main Skill": "Crafting (BC)", "Bonus Skill": "Metal Items Knowledge (KN)", "Notes": "" },
+            { "Action": "Crafting, Non-metal Armor", "Page": 116, "Main Skill": "Crafting (BC)", "Bonus Skill": "Cloth Items Knowledge (KN)", "Notes": "" },
+            { "Action": "Daunt Roll", "Page": 116, "Main Skill": "Daunt (ST)", "Bonus Skill": "Talk (SO)", "Notes": "vs. Complexity Level (Influence + Self-Insight Roll)" },
+            { "Action": "Detect Magic Roll", "Page": 118, "Main Skill": "Perception (RE)", "Bonus Skill": "Code Insight (RE)", "Notes": "" },
+            { "Action": "Detect Poison", "Page": 119, "Main Skill": "Perception (RE)", "Bonus Skill": "Poisons (KN)", "Notes": "" },
+            { "Action": "Disable Device/Repair Device", "Page": 119, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Mechanical Devices (KN)", "Notes": "" },
+            { "Action": "Divine Chanting", "Page": 119, "Main Skill": "Divine Insight (RE)", "Bonus Skill": "any Rite (KN)", "Notes": "" },
+            { "Action": "Dodge Roll", "Page": 119, "Main Skill": "Agility (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
+            { "Action": "Dodge Roll, Quick", "Page": 119, "Main Skill": "Quick Dodge (BC special)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
+            { "Action": "Emotion Control", "Page": 120, "Main Skill": "Perform (SO)", "Bonus Skill": "Will (RE)", "Notes": "" },
+            { "Action": "Empathy Roll", "Page": 120, "Main Skill": "Empathy (SO)", "Bonus Skill": "Comprehend (RE)", "Notes": "" },
+            { "Action": "Endurance Roll", "Page": 120, "Main Skill": "Endurance (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
+            { "Action": "Escape Artist", "Page": 120, "Main Skill": "Flexibility (PF)", "Bonus Skill": "Dexterity (BC)", "Notes": "" },
+            { "Action": "Fall Roll/Falling", "Page": 120, "Main Skill": "Reaction (RE)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
+            { "Action": "Fascinate", "Page": 121, "Main Skill": "Talk (SO)", "Bonus Skill": "Relevant Knowledge (KN) Skill", "Notes": "vs. Idea (RE) + the same Knowledge (KN) Skill." },
+            { "Action": "Fire Building", "Page": 122, "Main Skill": "Crafting (BC)", "Bonus Skill": "Any Wood, Item (KN)", "Notes": "" },
+            { "Action": "First Aid", "Page": 122, "Main Skill": "Medical (KN)", "Bonus Skill": "Anatomy (KN)", "Notes": "" },
+            { "Action": "First Aid, Poison", "Page": 122, "Main Skill": "Medical (KN)", "Bonus Skill": "Poisons (KN)", "Notes": "" },
+            { "Action": "Forage (Option 1)", "Page": 122, "Main Skill": "Nature (KN)", "Bonus Skill": "Perception (RE)", "Notes": "" },
+            { "Action": "Forage (Option 2)", "Page": 122, "Main Skill": "Food (KN)", "Bonus Skill": "Perception (RE)", "Notes": "" },
+            { "Action": "Health Roll (Option 1)", "Page": 123, "Main Skill": "Constitution (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
+            { "Action": "Health Roll (Option 2)", "Page": 123, "Main Skill": "Toughness (ST)", "Bonus Skill": "Will (RE)", "Notes": "" },
+            { "Action": "Hypnotism Roll", "Page": 123, "Main Skill": "Hypnosis (RE special)", "Bonus Skill": "Comprehend (RE)", "Notes": "vs. Willpower Roll." },
+            { "Action": "Information Gathering, Analytic", "Page": 123, "Main Skill": "Idea (RE)", "Bonus Skill": "Code Insight (RE)", "Notes": "" },
+            { "Action": "Information Gathering, Public", "Page": 123, "Main Skill": "Idea (RE)", "Bonus Skill": "Public (KN)", "Notes": "" },
+            { "Action": "Information Gathering, Law", "Page": 124, "Main Skill": "Idea (RE)", "Bonus Skill": "Law (KN)", "Notes": "" },
+            { "Action": "Interpreter Roll", "Page": 125, "Main Skill": "Talk (SO)", "Bonus Skill": "Interpreter (KN special)", "Notes": "" },
+            { "Action": "Interrogation", "Page": 125, "Main Skill": "Talk (SO)", "Bonus Skill": "Perception (RE)", "Notes": "vs. Willpower." },
+            { "Action": "Intimidation", "Page": 125, "Main Skill": "Convince (SO)", "Bonus Skill": "Brawn (ST)", "Notes": "vs. Willpower (reduce by Daunt Roll)." },
+            { "Action": "Intuition Roll", "Page": 126, "Main Skill": "Intuition (RE)", "Bonus Skill": "Introspection (RE)", "Notes": "" },
+            { "Action": "Jump", "Page": 126, "Main Skill": "Mobility (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
+            { "Action": "Law Roll", "Page": 126, "Main Skill": "Convince (SO)", "Bonus Skill": "Law (KN)", "Notes": "" },
+            { "Action": "Leadership Roll", "Page": 126, "Main Skill": "Leadership (SO)", "Bonus Skill": "Talk (SO)", "Notes": "" },
+            { "Action": "Lock Picking", "Page": 127, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Mechanical Devices (KN)", "Notes": "" },
+            { "Action": "Loyalty Roll", "Page": 127, "Main Skill": "Enhanced Leadership (SO special)", "Bonus Skill": "Motivate (SO special)", "Notes": "" },
+            { "Action": "Magic Spell Casting", "Page": 128, "Main Skill": "Magic Insight (RE)", "Bonus Skill": "any Magic (KN) skill", "Notes": "Additional details on page 251." },
+            { "Action": "Meditation Roll", "Page": 128, "Main Skill": "Serenity (RE)", "Bonus Skill": "Calmness (PF)", "Notes": "" },
+            { "Action": "Morale Boost", "Page": 128, "Main Skill": "Motivate (SO special)", "Bonus Skill": "Motive Insight (RE)", "Notes": "" },
+            { "Action": "Motivate/Demotivate", "Page": 129, "Main Skill": "Motivate (SO special)", "Bonus Skill": "Motive Insight (RE)", "Notes": "vs. Self-Insight Roll." },
+            { "Action": "Navigation", "Page": 129, "Main Skill": "Idea (RE)", "Bonus Skill": "Nature (KN)", "Notes": "" },
+            { "Action": "Negotiation", "Page": 129, "Main Skill": "Convince (SO)", "Bonus Skill": "Idea (RE)", "Notes": "" },
+            { "Action": "Observation", "Page": 130, "Main Skill": "Creature Insight (RE)", "Bonus Skill": "Perception (RE)", "Notes": "" },
+            { "Action": "Patience Roll", "Page": 130, "Main Skill": "Patience (SO)", "Bonus Skill": "Will (RE)", "Notes": "(Anger Management)" },
+            { "Action": "Perception Roll, Active", "Page": 130, "Main Skill": "Perception (RE)", "Bonus Skill": "Sense (PF)", "Notes": "" },
+            { "Action": "Perception Roll, Passive", "Page": 130, "Main Skill": "Sense (PF)", "Bonus Skill": "Perception (RE)", "Notes": "" },
+            { "Action": "Perform, Instrumental", "Page": 131, "Main Skill": "Perform (SO)", "Bonus Skill": "any Music Instrument (KN) skill", "Notes": "" },
+            { "Action": "Perform, Singing", "Page": 132, "Main Skill": "Perform (SO)", "Bonus Skill": "Singing (KN)", "Notes": "" },
+            { "Action": "Persuasion", "Page": 132, "Main Skill": "Convince (SO)", "Bonus Skill": "Motive Insight (RE)", "Notes": "" },
+            { "Action": "Pick Pockets", "Page": 133, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "(stealing in general). vs. Passive Perception Roll" },
+            { "Action": "Precision Roll", "Page": 133, "Main Skill": "Precision (BC)", "Bonus Skill": "Dexterity (BC)", "Notes": "" },
+            { "Action": "Psychology", "Page": 133, "Main Skill": "Idea (RE)", "Bonus Skill": "Motive Insight (KN)", "Notes": "" },
+            { "Action": "Reaction Roll", "Page": 133, "Main Skill": "Reaction (BC)", "Bonus Skill": "Perception (RE)", "Notes": "" },
+            { "Action": "Recall Roll", "Page": 134, "Main Skill": "Recall (RE)", "Bonus Skill": "Idea (RE)", "Notes": "" },
+            { "Action": "Recall Roll, Logic", "Page": 134, "Main Skill": "Logic Recall (RE special)", "Bonus Skill": "Idea (RE)", "Notes": "" },
+            { "Action": "Resist Cold", "Page": 135, "Main Skill": "Toughness (ST)", "Bonus Skill": "Constitution (PF)", "Notes": "" },
+            { "Action": "Resist Diseases", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Endurance (PF)", "Notes": "" },
+            { "Action": "Resist Fire", "Page": 135, "Main Skill": "Toughness (ST)", "Bonus Skill": "Constitution (PF)", "Notes": "" },
+            { "Action": "Resist Magic (Option 1)", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
+            { "Action": "Resist Magic (Option 2)", "Page": 135, "Main Skill": "Reaction (RE)", "Bonus Skill": "Constitution (PF)", "Notes": "" },
+            { "Action": "Resist Nausea", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
+            { "Action": "Resist Pain", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
+            { "Action": "Resist Poison", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Endurance (PF)", "Notes": "" },
+            { "Action": "Riding Roll", "Page": 136, "Main Skill": "Balance (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "" },
+            { "Action": "Rope Use (Option 2)", "Page": 137, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Brawn (ST)", "Notes": "with no Action Improvements." },
+            { "Action": "Rope Use (Option 3)", "Page": 137, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "with no Action Improvements." },
+            { "Action": "Rowing", "Page": 137, "Main Skill": "Brawn (ST)", "Bonus Skill": "Power (PF)", "Notes": "" },
+            { "Action": "Self-Insight Roll", "Page": 137, "Main Skill": "Introspection (BC)", "Bonus Skill": "Comprehend (RE)", "Notes": "" },
+            { "Action": "Seduce", "Page": 138, "Main Skill": "Talk (SO)", "Bonus Skill": "Appearance (PF)", "Notes": "" },
+            { "Action": "Sense Intention (creature)", "Page": 138, "Main Skill": "Creature Insight (RE)", "Bonus Skill": "Comprehend (RE)", "Notes": "" },
+            { "Action": "Sense Motive", "Page": 138, "Main Skill": "Motive Insight (RE)", "Bonus Skill": "Idea (RE)", "Notes": "vs. Bluff." },
+            { "Action": "Sleight of Hand Roll", "Page": 139, "Main Skill": "Sleight of Hand (BC special)", "Bonus Skill": "Haste (PF)", "Notes": "" },
+            { "Action": "Sneak Roll, Hide", "Page": 139, "Main Skill": "Agility (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "vs. Perception Roll (active or passive)." },
+            { "Action": "Sneak Roll, Exposed Hiding", "Page": 139, "Main Skill": "Agility (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "vs. Perception Roll (Active)." },
+            { "Action": "Sneak Roll, Move Silent", "Page": 139, "Main Skill": "Agility (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "vs. Perception Roll (active or passive)." },
+            { "Action": "Sneak Roll, Move Silent & Hidden", "Page": 140, "Main Skill": "Agility (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "vs. Perception Roll (active or passive)." },
+            { "Action": "Strength Roll", "Page": 141, "Main Skill": "Brawn (ST)", "Bonus Skill": "Power (ST)", "Notes": "" },
+            { "Action": "Study Roll (General)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "relevant knowledge (KN) skill", "Notes": "" },
+            { "Action": "Study Roll (Weapons and Armor)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "relevant knowledge (KN) skill", "Notes": "" },
+            { "Action": "Study Roll (Alchemy)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "Alchemy (KN)", "Notes": "" },
+            { "Action": "Study Roll (People)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "Motive Insight (RE)", "Notes": "" },
+            { "Action": "Study Roll (Sample)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "Nature (KN)", "Notes": "" },
+            { "Action": "Surgery Roll", "Page": 143, "Main Skill": "Surgery (KN special)", "Bonus Skill": "Idea (RE)", "Notes": "" },
+            { "Action": "Survival", "Page": 143, "Main Skill": "Idea (RE)", "Bonus Skill": "Nature (KN)", "Notes": "" },
+            { "Action": "Swim Roll", "Page": 143, "Main Skill": "Swimming (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
+            { "Action": "Terrifying Gaze", "Page": 143, "Main Skill": "Terrifying Look (ST special)", "Bonus Skill": "Perform (SO)", "Notes": "" },
+            { "Action": "Throw Roll", "Page": 143, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Power (PF)", "Notes": "" },
+            { "Action": "Torture", "Page": 144, "Main Skill": "Convince (SO)", "Bonus Skill": "Will (RE)", "Notes": "vs. Resist Pain." },
+            { "Action": "Tracking", "Page": 144, "Main Skill": "Perception (RE)", "Bonus Skill": "Idea (RE)", "Notes": "" },
+            { "Action": "Understand (General - Option 1)", "Page": 144, "Main Skill": "Idea (RE)", "Bonus Skill": "Comprehend (RE)", "Notes": "" },
+            { "Action": "Understand (General - Option 2)", "Page": 144, "Main Skill": "Idea (RE)", "Bonus Skill": "Law (KN)", "Notes": "" },
+            { "Action": "Understand (General - Option 3)", "Page": 144, "Main Skill": "Idea (RE)", "Bonus Skill": "Public (KN)", "Notes": "" },
+            { "Action": "Understand (Objects - Option 1)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "relevant knowledge (KN) skill", "Notes": "" },
+            { "Action": "Understand (Objects - Option 2)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "Item Insight (RE)", "Notes": "" },
+            { "Action": "Understand (Text)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "Languages (KN)", "Notes": "" },
+            { "Action": "Understand (Creature)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "Creature Insight (RE)", "Notes": "" },
+            { "Action": "Understand (Riddles)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "Code Insight (RE)", "Notes": "" },
+            { "Action": "Willpower Roll", "Page": 145, "Main Skill": "Will (RE)", "Bonus Skill": "Introspection (RE)", "Notes": "" },
+            { "Action": "Attack, Standard Melee", "Page": 102, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "vs. Defense Roll, Dodge Roll, or Block" },
+            { "Action": "Attack, Standard Unarmed", "Page": 102, "Main Skill": "Unarmed (Small) Melee (BC)", "Bonus Skill": "Martial Arts (KN)", "Notes": "vs. Defense Roll, Dodge Roll, or Block" },
+            { "Action": "Attack, Acrobatic (Step 1: Roll)", "Page": 102, "Main Skill": "Agility (BC)", "Bonus Skill": "Balance (BC)", "Notes": "REQ. Full Attack." },
+            { "Action": "Attack, Bull Rush", "Page": 103, "Main Skill": "Unarmed Melee (BC)", "Bonus Skill": "Haste (PF)", "Notes": "REQ. Full Attack. vs. Defense Roll or Dodge Roll" },
+            { "Action": "Attack, Charge", "Page": 103, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "REQ. Full Attack, Start 5 tiles from target. vs. Defense Roll, Dodge Roll, or Block." },
+            { "Action": "Attack, Grapple", "Page": 104, "Main Skill": "(Small &) Unarmed Melee (BC)", "Bonus Skill": "Dexterity (BC)", "Notes": "REQ. Full Attack. vs. Grapple Attack, Defense Roll, or Dodge Roll." },
+            { "Action": "Attack, Mounted Archery (Step 1: Ride)", "Page": 105, "Main Skill": "Balance (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "REQ. Quick or Aimed." },
+            { "Action": "Attack, Ranged Bow", "Page": 105, "Main Skill": "Archery (BC)", "Bonus Skill": "Simple Ranged Weapon Knowledge (KN)", "Notes": "REQ. Quick or Aimed. vs. Defense Roll, Ranged." },
+            { "Action": "Attack, Ranged Crossbow", "Page": 105, "Main Skill": "Crossbows (BC)", "Bonus Skill": "Mechanical Weapons Knowledge (KN)", "Notes": "REQ. Quick or Aimed. vs. Defense Roll, Ranged." },
+            { "Action": "Attack, Ranged Slings", "Page": 106, "Main Skill": "Slings (BC)", "Bonus Skill": "Simple Ranged Weapons Knowledge (KN)", "Notes": "REQ. Quick or Aimed. vs. Defense Roll, Ranged." },
+            { "Action": "Attack, Blowguns", "Page": 106, "Main Skill": "Blowguns (BC)", "Bonus Skill": "Blowguns Knowledge (KN)", "Notes": "REQ. Quick or Aimed. vs. Defense Roll, Ranged." },
+            { "Action": "Attack, Sneak", "Page": 106, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "REQ. Full Attack. vs. Defense Roll or Dodge Roll." },
+            { "Action": "Attack, Taunt", "Page": 106, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Talk (SO)", "Notes": "vs. Willpower Roll." },
+            { "Action": "Attack, Thrown Weapon", "Page": 107, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "REQ. Full Attack. vs. Defense Roll, Dodge Roll, or Block." },
+            { "Action": "Attack, Trip (Unarmed)", "Page": 107, "Main Skill": "(Small &) Unarmed Melee (BC)", "Bonus Skill": "Martial Arts (KN)", "Notes": "REQ. Full Attack. vs. Defense Roll or Dodge Roll." },
+            { "Action": "Attack, Trip (Armed)", "Page": 107, "Main Skill": "Med/Lrg Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "REQ. Full Attack. vs. Defense Roll or Dodge Roll." },
+            { "Action": "Attack, Tumble", "Page": 107, "Main Skill": "Small & Unarmed Melee (BC)", "Bonus Skill": "Quick Dodge (BC special)", "Notes": "REQ. Full Attack." },
+            { "Action": "Block, Arm Block", "Page": 109, "Main Skill": "Haste (PF)", "Bonus Skill": "Reaction (RE)", "Notes": "alternative to Standard Defense Roll." },
+            { "Action": "Block, Unarmed Block", "Page": 109, "Main Skill": "Unarmed Master (BC special)", "Bonus Skill": "Ambidextrous (BC)", "Notes": "alternative to Standard Defense Roll." },
+            { "Action": "Block, Shield Block", "Page": 109, "Main Skill": "Haste (PF)", "Bonus Skill": "Reaction (RE)", "Notes": "alternative to Standard Defense Roll." },
+            { "Action": "Defense Roll, Ranged (Dodge - Step 1)", "Page": 117, "Main Skill": "Reaction (RE)", "Bonus Skill": "Perception (RE)", "Notes": "Dodge Projectiles." },
+            { "Action": "Defense Roll, Ranged (Dodge - Step 2)", "Page": 117, "Main Skill": "Agility (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
+            { "Action": "Defense Roll, Ranged (Block - Step 1)", "Page": 118, "Main Skill": "Reaction (RE)", "Bonus Skill": "Perception (RE)", "Notes": "Shield Block Projectiles." },
+            { "Action": "Defense Roll, Ranged (Block - Step 2)", "Page": 118, "Main Skill": "Haste (PF)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
+            { "Action": "Initiative Adjust Roll", "Page": 124, "Main Skill": "Endurance (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
+            { "Action": "Initiative Roll", "Page": 124, "Main Skill": "Any Combat Skill (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "" }
+        ];
+
+        const characterSchema = {
+            "Body Control (BC)": ["Agility", "Balance", "Crafting", "Dexterity", "Mobility", "Precision", "Reaction", "Swimming", "Any Melee", "Unarmed (Small) Melee", "Archery", "Crossbows", "Slings", "Blowguns", "Med/Lrg Melee", "Small & Unarmed Melee", "Introspection", "Any Combat Skill"],
+            "Physical Fitness (PF)": ["Flexibility", "Calmness", "Endurance", "Haste", "Power", "Constitution", "Sense", "Appearance"],
+            "Reason (RE)": ["Idea", "Code Insight", "Item Insight", "Creature Insight", "Anatomy", "Perception", "Divine Insight", "Reaction", "Comprehend", "Empathy", "Will", "Hypnosis", "Introspection", "Intuition", "Motive Insight", "Logic Recall", "Recall", "Serenity", "Study"],
+            "Social (SO)": ["Convince", "Perform", "Talk", "Calmness", "Code Insight", "Empathy", "Leadership", "Patience", "Motivate"],
+            "Strength (ST)": ["Daunt", "Brawn", "Power", "Toughness", "Terrifying Look"],
+            "Knowledge (KN)": ["Item Knowledge", "Anatomy", "Melee Weapons Knowledge", "Food", "Alchemy", "Magic", "Poisons", "Metal Items Knowledge", "Cloth Items Knowledge", "Mechanical Devices", "Rite", "Wood, Item", "Medical", "Nature", "Public", "Law", "Interpreter", "Music Instrument", "Singing", "Motive Insight", "Languages", "Surgery", "Martial Arts", "Simple Ranged Weapon", "Mechanical Weapons", "Blowguns Knowledge"],
+            "Special": ["Camouflage", "Quick Dodge", "Enhanced Leadership", "Hypnosis", "Logic Recall", "Motivate", "Study", "Surgery", "Terrifying Look", "Unarmed Master", "Sleight of Hand", "Ambidextrous"]
+        };
+
+        const successRangeTable = {
+            0: 11, // Never succeed
+            1: 10, 2: 9, 3: 8, 4: 7, 5: 6, 6: 5, 7: 4, 8: 3, 9: 2, 10: 1
+        };
+
+        // --- APP STATE ---
+        let characterData = {};
+        let uiState = {
+            expandedAction: null
+        };
+
+        // --- UTILITY FUNCTIONS ---
+
+        /**
+         * Extracts the attribute code (e.g., 'BC') from a skill string.
+         * @param {string} skill - The full skill string, e.g., "Agility (BC)".
+         * @returns {string|null} The attribute code or null if not found.
+         */
+        function getAttributeFromSkill(skill) {
+            const match = skill.match(/\(([^)]+)\)/);
+            return match ? match[1] : null;
+        }
+
+        /**
+         * Gets a value from the character data, defaulting to 0.
+         * @param {string} key - The key for the data (e.g., "Agility" or "Body Control (BC)").
+         * @returns {number} The stored value or 0.
+         */
+        function getCharValue(key) {
+            return parseInt(characterData[key] || 0, 10);
+        }
+
+        // --- DOM & RENDERING ---
+        const characterSheetEl = document.getElementById('characterSheet');
+        const actionListEl = document.getElementById('actionList');
+        const searchInputEl = document.getElementById('searchInput');
+        const sortOrderEl = document.getElementById('sortOrder');
+        const targetSuccessesEl = document.getElementById('targetSuccesses');
+
+        /**
+         * Generates the HTML for the character sheet based on the schema.
+         */
+        function renderCharacterSheet() {
+            let html = '';
+            for (const attribute in characterSchema) {
+                html += `
+                    <details class="bg-gray-700/50 rounded-lg mb-3" open>
+                        <summary class="font-bold text-lg cursor-pointer p-3">${attribute}</summary>
+                        <div class="p-3 border-t border-gray-600">
+                            <div class="grid grid-cols-5 gap-2 items-center mb-2">
+                                <label class="col-span-3 text-sm font-semibold">Score:</label>
+                                <input type="number" min="0" data-type="attribute" data-key="${attribute}" value="${getCharValue(attribute)}" class="col-span-2 bg-gray-800 border border-gray-600 rounded px-2 py-1">
+                            </div>
+                `;
+                characterSchema[attribute].forEach(skill => {
+                    // Create a unique key for each skill
+                    const skillKey = `${skill} (${getAttributeFromSkill(attribute) || '...'})`;
+                    html += `
+                        <div class="grid grid-cols-5 gap-2 items-center mb-1">
+                            <label class="col-span-3 text-sm">${skill}:</label>
+                            <input type="number" min="0" data-type="skill" data-key="${skill}" value="${getCharValue(skill)}" class="col-span-2 bg-gray-800 border border-gray-600 rounded px-2 py-1">
+                        </div>
+                    `;
+                });
+                html += `</div></details>`;
+            }
+            characterSheetEl.innerHTML = html;
+        }
+
+        /**
+         * Renders the entire list of actions based on current filters and sorting.
+         */
+        function renderActionList() {
+            const searchTerm = searchInputEl.value.toLowerCase();
+            const sortBy = sortOrderEl.value;
+            const targetSuccesses = parseInt(targetSuccessesEl.value, 10) || 1;
+
+            // 1. Filter
+            const filteredActions = actionsData.filter(action => {
+                if (!searchTerm) return true;
+                return (
+                    action.Action.toLowerCase().includes(searchTerm) ||
+                    action['Main Skill'].toLowerCase().includes(searchTerm) ||
+                    action['Bonus Skill'].toLowerCase().includes(searchTerm)
+                );
+            });
+
+            // 2. Calculate Metrics for each action
+            const actionsWithMetrics = filteredActions.map(action => {
+                const mainSkill = action['Main Skill'];
+                const bonusSkill = action['Bonus Skill'];
+
+                const mainSkillName = mainSkill.split(' (')[0];
+                const bonusSkillName = bonusSkill.split(' (')[0];
+
+                const mainSkillAttr = getAttributeFromSkill(mainSkill);
+
+                const primarySkillRank = getCharValue(mainSkillName);
+                const secondarySkillRank = getCharValue(bonusSkillName);
+                const attributeScore = getCharValue(mainSkillAttr);
+
+                const dicePool = attributeScore + secondarySkillRank;
+                const successThreshold = successRangeTable[primarySkillRank] || 11;
+                const singleDieSuccessChance = Math.max(0, (11 - successThreshold) / 10);
+
+                const avgSuccesses = dicePool * singleDieSuccessChance;
+
+                return {
+                    ...action,
+                    metrics: {
+                        dicePool,
+                        avgSuccesses,
+                        mainSkillName,
+                        bonusSkillName,
+                        mainSkillAttr,
+                        primarySkillRank,
+                        secondarySkillRank,
+                        attributeScore,
+                        successThreshold
+                    }
+                };
+            });
+
+            // 3. Sort
+            actionsWithMetrics.sort((a, b) => {
+                switch (sortBy) {
+                    case 'alpha':
+                        return a.Action.localeCompare(b.Action);
+                    case 'page':
+                        return (a.Page || 999) - (b.Page || 999);
+                    case 'best':
+                    default:
+                        return b.metrics.avgSuccesses - a.metrics.avgSuccesses;
+                }
+            });
+
+            // 4. Generate HTML
+            if (actionsWithMetrics.length === 0) {
+                actionListEl.innerHTML = `<div class="bg-gray-800 p-4 rounded-lg text-center">No actions found.</div>`;
+                return;
+            }
+
+            actionListEl.innerHTML = actionsWithMetrics.map(action => generateActionRowHTML(action)).join('');
+        }
+
+        /**
+         * Generates the HTML for a single action row.
+         * @param {object} action - The action object with its calculated metrics.
+         * @returns {string} The HTML string for the row.
+         */
+        function generateActionRowHTML(action) {
+            const { metrics } = action;
+            const isExpanded = uiState.expandedAction === action.Action;
+
+            const simplifiedMain = metrics.mainSkillName.replace(/\(.*\)/, '').trim();
+            const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
+
+            return `
+                <div class="action-row bg-gray-800 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-700/80 hover:ring-2 hover:ring-blue-600 ${isExpanded ? 'expanded ring-2 ring-blue-500' : ''}" data-action-name="${action.Action}">
+                    <div class="p-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <h3 class="font-bold text-lg text-white">${action.Action}</h3>
+                                <div class="tooltip">
+                                    <p class="text-sm text-gray-400">${simplifiedMain} + ${simplifiedBonus}</p>
+                                    <span class="tooltiptext">${action['Main Skill']} + ${action['Bonus Skill']}</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-white">Avg. Successes: ${metrics.avgSuccesses.toFixed(2)}</p>
+                                <p class="text-sm text-gray-400">Dice Pool: ${metrics.dicePool}d10</p>
+                            </div>
+                        </div>
+                        <div class="action-details mt-4 pt-4 border-t border-gray-700 text-sm">
+                            <p><strong class="text-gray-300">Notes:</strong> ${action.Notes || 'None'}</p>
+                            <p><strong class="text-gray-300">Page:</strong> ${action.Page || 'N/A'}</p>
+                            <p class="mt-2 text-blue-300"><strong class="text-gray-300">Calculation:</strong>
+                                ${metrics.attributeScore}d10 (from ${metrics.mainSkillAttr}) +
+                                ${metrics.secondarySkillRank}d10 (from ${metrics.bonusSkillName})
+                            </p>
+                             <p class="text-blue-300"><strong class="text-gray-300">Success on:</strong>
+                                ${metrics.successThreshold}+ (from ${metrics.mainSkillName} rank ${metrics.primarySkillRank})
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+
+        // --- EVENT HANDLERS & INITIALIZATION ---
+
+        /**
+         * Handles input changes on the character sheet.
+         * @param {Event} e - The input event.
+         */
+        function handleCharacterDataChange(e) {
+            if (e.target.matches('input[type="number"]')) {
+                const key = e.target.dataset.key;
+                const value = e.target.value;
+                characterData[key] = value;
+                localStorage.setItem('insightCharacterData', JSON.stringify(characterData));
+                renderActionList();
+            }
+        }
+
+        /**
+         * Handles clicks on the action list to expand/collapse rows.
+         * @param {Event} e - The click event.
+         */
+        function handleActionListClick(e) {
+            const row = e.target.closest('.action-row');
+            if (row) {
+                const actionName = row.dataset.actionName;
+                // Toggle expansion
+                if (uiState.expandedAction === actionName) {
+                    uiState.expandedAction = null;
+                } else {
+                    uiState.expandedAction = actionName;
+                }
+                // Re-render to reflect the change
+                renderActionList();
+            }
+        }
+
+        /**
+         * Loads character data from localStorage.
+         */
+        function loadCharacterData() {
+            const savedData = localStorage.getItem('insightCharacterData');
+            if (savedData) {
+                characterData = JSON.parse(savedData);
+            }
+        }
+
+        /**
+         * Initializes the application.
+         */
+        function init() {
+            loadCharacterData();
+            renderCharacterSheet();
+            renderActionList();
+
+            // Add event listeners
+            characterSheetEl.addEventListener('input', handleCharacterDataChange);
+            actionListEl.addEventListener('click', handleActionListClick);
+            searchInputEl.addEventListener('input', renderActionList);
+            sortOrderEl.addEventListener('change', renderActionList);
+            targetSuccessesEl.addEventListener('input', renderActionList);
+        }
+
+        // Start the app
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+</html>
