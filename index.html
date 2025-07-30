@@ -287,11 +287,14 @@
 
         /**
          * Extracts the attribute code (e.g., 'BC') from a skill string.
-         * @param {string} skill - The full skill string, e.g., "Agility (BC)".
+         * This version correctly handles 'special' tags like (RE special).
+         * @param {string} skill - The full skill string, e.g., "Agility (BC)" or "Study (RE special)".
          * @returns {string|null} The attribute code or null if not found.
          */
         function getAttributeFromSkill(skill) {
-            const match = skill.match(/\(([^)]+)\)/);
+            // This regex looks for a two-letter uppercase code inside parentheses,
+            // optionally followed by the word "special". It only captures the two-letter code.
+            const match = skill.match(/\(([A-Z]{2})(?: special)?\)/);
             return match ? match[1] : null;
         }
 
