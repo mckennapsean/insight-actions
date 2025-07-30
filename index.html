@@ -37,7 +37,7 @@
             z-index: 1;
             bottom: 125%;
             left: 50%;
-            margin-left: -60px;
+            transform: translateX(-50%);
             opacity: 0;
             transition: opacity 0.3s;
             border: 1px solid #374151;
@@ -85,7 +85,7 @@
         <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             <!-- Left Column: Character Sheet -->
-            <aside class="lg:col-span-1 bg-gray-800 p-4 rounded-lg h-fit">
+            <aside class="lg:col-span-1 bg-gray-800 p-4 rounded-lg h-fit sticky top-4">
                 <h2 class="text-2xl font-bold mb-4">My Character</h2>
                 <div id="characterSheet">
                     <!-- Character sheet will be dynamically generated here -->
@@ -267,9 +267,9 @@
             "Special": ["Camouflage", "Quick Dodge", "Enhanced Leadership", "Hypnosis", "Logic Recall", "Motivate", "Study", "Surgery", "Terrifying Look", "Unarmed Master", "Sleight of Hand", "Ambidextrous"]
         };
 
+        // UPDATED: New success range table based on user feedback
         const successRangeTable = {
-            0: 11, // Never succeed
-            1: 10, 2: 9, 3: 8, 4: 7, 5: 6, 6: 5, 7: 4, 8: 3, 9: 2, 10: 1
+            0: 9, 1: 8, 2: 7, 3: 6
         };
 
         // --- APP STATE ---
@@ -288,6 +288,21 @@
         function getAttributeFromSkill(skill) {
             const match = skill.match(/\(([^)]+)\)/);
             return match ? match[1] : null;
+        }
+
+        /**
+         * Finds the full attribute name (e.g., "Body Control (BC)") from its abbreviation.
+         * @param {string} abbr - The attribute abbreviation (e.g., "BC").
+         * @returns {string|null} The full attribute name or null.
+         */
+        function getFullAttributeName(abbr) {
+            if (!abbr) return null;
+            for (const fullName in characterSchema) {
+                if (getAttributeFromSkill(fullName) === abbr) {
+                    return fullName;
+                }
+            }
+            return null;
         }
 
         /**
@@ -322,8 +337,6 @@
                             </div>
                 `;
                 characterSchema[attribute].forEach(skill => {
-                    // Create a unique key for each skill
-                    const skillKey = `${skill} (${getAttributeFromSkill(attribute) || '...'})`;
                     html += `
                         <div class="grid grid-cols-5 gap-2 items-center mb-1">
                             <label class="col-span-3 text-sm">${skill}:</label>
@@ -362,16 +375,24 @@
                 const mainSkillName = mainSkill.split(' (')[0];
                 const bonusSkillName = bonusSkill.split(' (')[0];
 
-                const mainSkillAttr = getAttributeFromSkill(mainSkill);
+                const mainSkillAttrAbbr = getAttributeFromSkill(mainSkill);
+                const fullMainSkillAttr = getFullAttributeName(mainSkillAttrAbbr);
 
                 const primarySkillRank = getCharValue(mainSkillName);
                 const secondarySkillRank = getCharValue(bonusSkillName);
-                const attributeScore = getCharValue(mainSkillAttr);
+                const attributeScore = getCharValue(fullMainSkillAttr);
 
                 const dicePool = attributeScore + secondarySkillRank;
-                const successThreshold = successRangeTable[primarySkillRank] || 11;
-                const singleDieSuccessChance = Math.max(0, (11 - successThreshold) / 10);
 
+                // FIXED: Success threshold logic updated based on user rules
+                let successThreshold;
+                if (primarySkillRank === 0 && mainSkillAttrAbbr === 'KN') {
+                    successThreshold = 10; // Special rule for KN skills at rank 0
+                } else {
+                    successThreshold = successRangeTable[primarySkillRank] || 11; // Default to 11 (impossible) if rank is not in table
+                }
+
+                const singleDieSuccessChance = Math.max(0, (11 - successThreshold) / 10);
                 const avgSuccesses = dicePool * singleDieSuccessChance;
 
                 return {
@@ -381,7 +402,7 @@
                         avgSuccesses,
                         mainSkillName,
                         bonusSkillName,
-                        mainSkillAttr,
+                        fullMainSkillAttr,
                         primarySkillRank,
                         secondarySkillRank,
                         attributeScore,
@@ -444,7 +465,7 @@
                             <p><strong class="text-gray-300">Notes:</strong> ${action.Notes || 'None'}</p>
                             <p><strong class="text-gray-300">Page:</strong> ${action.Page || 'N/A'}</p>
                             <p class="mt-2 text-blue-300"><strong class="text-gray-300">Calculation:</strong>
-                                ${metrics.attributeScore}d10 (from ${metrics.mainSkillAttr}) +
+                                ${metrics.attributeScore}d10 (from ${metrics.fullMainSkillAttr}) +
                                 ${metrics.secondarySkillRank}d10 (from ${metrics.bonusSkillName})
                             </p>
                              <p class="text-blue-300"><strong class="text-gray-300">Success on:</strong>
