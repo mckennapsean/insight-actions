@@ -332,14 +332,21 @@
         function renderCharacterSheet() {
             let html = '';
             for (const attribute in characterSchema) {
+                // Don't render a section for "Special" skills as they don't have a score
+                if (attribute === "Special") continue;
+
+                // MODIFIED: 'open' attribute removed so details are collapsed by default.
+                // Input for attribute score is now inside the summary.
                 html += `
-                    <details class="bg-gray-700/50 rounded-lg mb-3" open>
-                        <summary class="font-bold text-lg cursor-pointer p-3">${attribute}</summary>
-                        <div class="p-3 border-t border-gray-600">
-                            <div class="grid grid-cols-5 gap-2 items-center mb-2">
-                                <label class="col-span-3 text-sm font-semibold">Score:</label>
-                                <input type="number" min="0" data-type="attribute" data-key="${attribute}" value="${getCharValue(attribute)}" class="col-span-2 bg-gray-800 border border-gray-600 rounded px-2 py-1">
+                    <details class="bg-gray-700/50 rounded-lg mb-3">
+                        <summary class="font-bold text-lg cursor-pointer p-3 flex justify-between items-center">
+                            <span>${attribute}</span>
+                            <div class="flex items-center" onclick="event.stopPropagation()">
+                                <label class="text-sm font-semibold mr-2">Score:</label>
+                                <input type="number" min="0" data-type="attribute" data-key="${attribute}" value="${getCharValue(attribute)}" class="w-16 bg-gray-800 border border-gray-600 rounded px-2 py-1">
                             </div>
+                        </summary>
+                        <div class="p-3 border-t border-gray-600">
                 `;
                 characterSchema[attribute].forEach(skill => {
                     html += `
@@ -519,12 +526,19 @@
         }
 
         /**
-         * Loads character data from localStorage.
+         * Loads character data from localStorage and sets defaults.
          */
         function loadCharacterData() {
             const savedData = localStorage.getItem('insightCharacterData');
             if (savedData) {
                 characterData = JSON.parse(savedData);
+            } else {
+                // NEW: Set default attribute scores to 3 if no data exists
+                for (const attribute in characterSchema) {
+                    if (attribute !== "Special") { // Don't give "Special" an attribute score
+                       characterData[attribute] = 3;
+                    }
+                }
             }
         }
 
@@ -536,12 +550,28 @@
             renderCharacterSheet();
             renderActionList();
 
-            // Add event listeners
+            // --- Event Listeners ---
             characterSheetEl.addEventListener('input', handleCharacterDataChange);
             actionListEl.addEventListener('click', handleActionListClick);
             searchInputEl.addEventListener('input', renderActionList);
             sortOrderEl.addEventListener('change', renderActionList);
             targetSuccessesEl.addEventListener('input', renderActionList);
+
+            // NEW: Event listener for the toggle button
+            const toggleBtn = document.getElementById('toggleCharacterPanel');
+            const characterPanel = document.getElementById('characterPanel');
+            const actionListPanel = document.getElementById('actionListPanel');
+
+            toggleBtn.addEventListener('click', () => {
+                const isHidden = characterPanel.classList.toggle('hidden');
+                if (isHidden) {
+                    actionListPanel.classList.remove('lg:col-span-2');
+                    actionListPanel.classList.add('lg:col-span-3');
+                } else {
+                    actionListPanel.classList.remove('lg:col-span-3');
+                    actionListPanel.classList.add('lg:col-span-2');
+                }
+            });
         }
 
         // Start the app
