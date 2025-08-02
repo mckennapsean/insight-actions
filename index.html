@@ -55,9 +55,11 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
+            display: none;
         }
         .action-row.expanded .action-details {
             max-height: 200px; /* Adjust as needed */
+            display: block;
         }
     </style>
 </head>
@@ -549,7 +551,7 @@
                             <div class="text-right">
                                 <p class="font-semibold text-white">Dice Pool: ${metrics.dicePool}d10</p>
                                 <p class="text-sm text-gray-400">
-                                    Success: ${metrics.successThreshold}+ (μ=${metrics.avgSuccesses.toFixed(2)})
+                                    Success: ${metrics.successThreshold}+ (μ ${metrics.avgSuccesses.toFixed(2)})
                                 </p>
                             </div>
                         </div>
