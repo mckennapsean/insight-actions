@@ -61,6 +61,10 @@
             max-height: 200px; /* Adjust as needed */
             display: block;
         }
+        .action-row.selected {
+            border-color: #2563eb; /* A distinct blue border */
+            border-width: 2px;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200 font-sans antialiased">
@@ -347,7 +351,8 @@
         // --- APP STATE ---
         let characterData = {};
         let uiState = {
-            expandedAction: null
+            expandedAction: null,
+            selectedActionIndex: -1 // -1 means no action is selected
         };
 
         // --- UTILITY FUNCTIONS ---
@@ -438,43 +443,27 @@
             const searchTerm = searchInputEl.value.toLowerCase().trim();
             const sortBy = sortOrderEl.value;
 
-            // NEW: Synonym-enhanced search logic
             let searchTerms = [searchTerm];
             if (synonymDictionary[searchTerm]) {
                 searchTerms = [searchTerm, ...synonymDictionary[searchTerm]];
             }
 
-            // 1. Filter
             const filteredActions = actionsData.filter(action => {
                 if (!searchTerm) return true;
-
-                const actionText = (
-                    action.Action + ' ' +
-                    action['Main Skill'] + ' ' +
-                    action['Bonus Skill']
-                ).toLowerCase();
-
-                // Check if the action text includes ANY of the search terms (original + synonyms)
+                const actionText = (action.Action + ' ' + action['Main Skill'] + ' ' + action['Bonus Skill']).toLowerCase();
                 return searchTerms.some(term => actionText.includes(term));
             });
 
-            // ... (The rest of the function remains the same) ...
-
-            // 2. Calculate Metrics for each action
             const actionsWithMetrics = filteredActions.map(action => {
                 const mainSkill = action['Main Skill'];
                 const bonusSkill = action['Bonus Skill'];
-
                 const mainSkillName = mainSkill.split(' (')[0];
                 const bonusSkillName = bonusSkill.split(' (')[0];
-
                 const mainSkillAttrAbbr = getAttributeFromSkill(mainSkill);
                 const fullMainSkillAttr = getFullAttributeName(mainSkillAttrAbbr);
-
                 const primarySkillRank = getCharValue(mainSkillName);
                 const secondarySkillRank = getCharValue(bonusSkillName);
                 const attributeScore = getCharValue(fullMainSkillAttr);
-
                 const dicePool = attributeScore + secondarySkillRank;
 
                 let successThreshold;
@@ -489,57 +478,52 @@
 
                 return {
                     ...action,
-                    metrics: {
-                        dicePool,
-                        avgSuccesses,
-                        mainSkillName,
-                        bonusSkillName,
-                        fullMainSkillAttr,
-                        primarySkillRank,
-                        secondarySkillRank,
-                        attributeScore,
-                        successThreshold
-                    }
+                    metrics: { dicePool, avgSuccesses, mainSkillName, bonusSkillName, fullMainSkillAttr, primarySkillRank, secondarySkillRank, attributeScore, successThreshold }
                 };
             });
 
-            // 3. Sort
             actionsWithMetrics.sort((a, b) => {
                 switch (sortBy) {
-                    case 'alpha':
-                        return a.Action.localeCompare(b.Action);
-                    case 'page':
-                        return (a.Page || 999) - (b.Page || 999);
-                    case 'best':
-                    default:
-                        return b.metrics.avgSuccesses - a.metrics.avgSuccesses;
+                    case 'alpha': return a.Action.localeCompare(b.Action);
+                    case 'page': return (a.Page || 999) - (b.Page || 999);
+                    default: return b.metrics.avgSuccesses - a.metrics.avgSuccesses;
                 }
             });
 
-            // 4. Generate HTML
             if (actionsWithMetrics.length === 0) {
                 actionListEl.innerHTML = `<div class="bg-gray-800 p-4 rounded-lg text-center">No actions found.</div>`;
                 return;
             }
 
-            actionListEl.innerHTML = actionsWithMetrics.map(action => generateActionRowHTML(action)).join('');
+            // MODIFIED: Pass the index to the generation function
+            actionListEl.innerHTML = actionsWithMetrics.map((action, index) => generateActionRowHTML(action, index)).join('');
+
+            // NEW: Scroll selected item into view after rendering
+            if (uiState.selectedActionIndex !== -1) {
+                const selectedElement = document.getElementById(`action-row-${uiState.selectedActionIndex}`);
+                if (selectedElement) {
+                    selectedElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+            }
         }
 
         /**
          * Generates the HTML for a single action row.
          * @param {object} action - The action object with its calculated metrics.
+         * @param {number} index - The index of the action in the currently displayed list.
          * @returns {string} The HTML string for the row.
          */
-        function generateActionRowHTML(action) {
+        function generateActionRowHTML(action, index) {
             const { metrics } = action;
             const isExpanded = uiState.expandedAction === action.Action;
+            const isSelected = uiState.selectedActionIndex === index;
 
             const simplifiedMain = metrics.mainSkillName.replace(/\(.*\)/, '').trim();
             const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
 
-            // MODIFIED: The layout of the right-hand side is changed here.
+            // MODIFIED: Added isSelected check to add the 'selected' class
             return `
-                <div class="action-row bg-gray-800 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-700/80 hover:ring-2 hover:ring-blue-600 ${isExpanded ? 'expanded ring-2 ring-blue-500' : ''}" data-action-name="${action.Action}">
+                <div class="action-row bg-gray-800 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-700/80 ${isExpanded ? 'expanded' : ''} ${isSelected ? 'selected' : ''}" data-action-name="${action.Action}" id="action-row-${index}">
                     <div class="p-4">
                         <div class="grid grid-cols-2 gap-x-4">
                             <div>
@@ -609,6 +593,98 @@
         }
 
         /**
+         * Handles global key presses for search and navigation.
+         */
+        function handleGlobalKeyDown(e) {
+            const visibleActions = document.querySelectorAll('.action-row');
+
+            // Handle key presses while inside the search input
+            if (e.target.tagName === 'INPUT') {
+                switch (e.key) {
+                    case 'Escape':
+                        searchInputEl.value = '';
+                        searchInputEl.blur();
+                        renderActionList();
+                        break;
+                    case 'ArrowDown':
+                        // NEW: Move focus from search to the list
+                        e.preventDefault();
+                        if (visibleActions.length > 0) {
+                            uiState.selectedActionIndex = 0;
+                            searchInputEl.blur(); // Unfocus the search bar
+                            renderActionList();
+                        }
+                        break;
+                }
+                return; // Stop further execution for input fields
+            }
+
+            if (visibleActions.length === 0 && e.key !== '/') return;
+
+            switch (e.key) {
+                case '/':
+                    e.preventDefault();
+                    searchInputEl.focus();
+                    break;
+
+                case 'ArrowDown':
+                    e.preventDefault();
+                    uiState.selectedActionIndex = Math.min(uiState.selectedActionIndex + 1, visibleActions.length - 1);
+                    renderActionList();
+                    break;
+
+                case 'ArrowUp':
+                    e.preventDefault();
+                    // Allow moving selection back to -1 (nothing selected)
+                    if (uiState.selectedActionIndex > 0) {
+                       uiState.selectedActionIndex--;
+                    } else {
+                       uiState.selectedActionIndex = -1; // Deselect
+                       searchInputEl.focus(); // Return focus to search
+                    }
+                    renderActionList();
+                    break;
+
+                case 'Enter':
+                case ' ': // Spacebar
+                    if (uiState.selectedActionIndex !== -1) {
+                        e.preventDefault();
+                        const selectedRow = visibleActions[uiState.selectedActionIndex];
+                        if (selectedRow) {
+                            const actionName = selectedRow.dataset.actionName;
+                            uiState.expandedAction = uiState.expandedAction === actionName ? null : actionName;
+                            renderActionList();
+                        }
+                    }
+                    break;
+
+                // NEW: Logic for Left and Right arrows
+                case 'ArrowRight':
+                     if (uiState.selectedActionIndex !== -1) {
+                        e.preventDefault();
+                        const selectedRow = visibleActions[uiState.selectedActionIndex];
+                        if (selectedRow) {
+                            const actionName = selectedRow.dataset.actionName;
+                            uiState.expandedAction = actionName; // Always expand
+                            renderActionList();
+                        }
+                    }
+                    break;
+
+                case 'ArrowLeft':
+                     if (uiState.selectedActionIndex !== -1) {
+                        e.preventDefault();
+                        const selectedRow = visibleActions[uiState.selectedActionIndex];
+                        if (selectedRow) {
+                            uiState.expandedAction = null; // Always collapse
+                            renderActionList();
+                        }
+                    }
+                    break;
+            }
+        }
+
+        /**
          * Loads character data from localStorage and sets defaults.
          */
         function loadCharacterData() {
@@ -654,6 +730,9 @@
                     actionListPanel.classList.add('lg:col-span-2');
                 }
             });
+
+            // Add this new line at the end of the init function
+            document.addEventListener('keydown', handleGlobalKeyDown);
         }
 
         // Start the app
