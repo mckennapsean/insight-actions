@@ -401,11 +401,8 @@
         function renderCharacterSheet() {
             let html = '';
             for (const attribute in characterSchema) {
-                // Don't render a section for "Special" skills as they don't have a score
                 if (attribute === "Special") continue;
 
-                // MODIFIED: 'open' attribute removed so details are collapsed by default.
-                // Input for attribute score is now inside the summary.
                 html += `
                     <details class="bg-gray-700/50 rounded-lg mb-3">
                         <summary class="font-bold text-lg cursor-pointer p-3 flex justify-between items-center">
@@ -417,7 +414,11 @@
                         </summary>
                         <div class="p-3 border-t border-gray-600">
                 `;
-                characterSchema[attribute].forEach(skill => {
+
+                // NEW: Sort the skills alphabetically before rendering them
+                const sortedSkills = [...characterSchema[attribute]].sort();
+
+                sortedSkills.forEach(skill => {
                     html += `
                         <div class="grid grid-cols-5 gap-2 items-center mb-1">
                             <label class="col-span-3 text-sm">${skill}:</label>
