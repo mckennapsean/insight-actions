@@ -277,6 +277,21 @@
             0: 9, 1: 8, 2: 7, 3: 6
         };
 
+        const synonymDictionary = {
+            'stealth': ['sneak', 'hide', 'conceal', 'camouflage'],
+            'sneak': ['stealth', 'hide', 'conceal', 'camouflage'],
+            'hide': ['stealth', 'sneak', 'conceal', 'camouflage'],
+            'persuade': ['convince', 'bluff', 'negotiate', 'fascinate', 'seduce', 'intimidate', 'daunt'],
+            'convince': ['persuade', 'bluff', 'negotiate', 'fascinate', 'seduce'],
+            'attack': ['strike', 'assault', 'charge', 'rush', 'grapple', 'trip', 'tumble'],
+            'search': ['find', 'spot', 'perceive', 'observe', 'track', 'detect'],
+            'find': ['search', 'spot', 'perceive', 'observe', 'track', 'detect'],
+            'craft': ['make', 'build', 'create', 'repair', 'butcher', 'cook'],
+            'make': ['craft', 'build', 'create', 'repair'],
+            'resist': ['endure', 'withstand', 'block', 'defend', 'dodge'],
+            'dodge': ['resist', 'block', 'defend']
+        };
+
         // --- APP STATE ---
         let characterData = {};
         let uiState = {
@@ -367,18 +382,30 @@
          * Renders the entire list of actions based on current filters and sorting.
          */
         function renderActionList() {
-            const searchTerm = searchInputEl.value.toLowerCase();
+            const searchTerm = searchInputEl.value.toLowerCase().trim();
             const sortBy = sortOrderEl.value;
+
+            // NEW: Synonym-enhanced search logic
+            let searchTerms = [searchTerm];
+            if (synonymDictionary[searchTerm]) {
+                searchTerms = [searchTerm, ...synonymDictionary[searchTerm]];
+            }
 
             // 1. Filter
             const filteredActions = actionsData.filter(action => {
                 if (!searchTerm) return true;
-                return (
-                    action.Action.toLowerCase().includes(searchTerm) ||
-                    action['Main Skill'].toLowerCase().includes(searchTerm) ||
-                    action['Bonus Skill'].toLowerCase().includes(searchTerm)
-                );
+
+                const actionText = (
+                    action.Action + ' ' +
+                    action['Main Skill'] + ' ' +
+                    action['Bonus Skill']
+                ).toLowerCase();
+
+                // Check if the action text includes ANY of the search terms (original + synonyms)
+                return searchTerms.some(term => actionText.includes(term));
             });
+
+            // ... (The rest of the function remains the same) ...
 
             // 2. Calculate Metrics for each action
             const actionsWithMetrics = filteredActions.map(action => {
@@ -397,12 +424,11 @@
 
                 const dicePool = attributeScore + secondarySkillRank;
 
-                // FIXED: Success threshold logic updated based on user rules
                 let successThreshold;
                 if (primarySkillRank === 0 && mainSkillAttrAbbr === 'KN') {
-                    successThreshold = 10; // Special rule for KN skills at rank 0
+                    successThreshold = 10;
                 } else {
-                    successThreshold = successRangeTable[primarySkillRank] || 11; // Default to 11 (impossible) if rank is not in table
+                    successThreshold = successRangeTable[primarySkillRank] || 11;
                 }
 
                 const singleDieSuccessChance = Math.max(0, (11 - successThreshold) / 10);
