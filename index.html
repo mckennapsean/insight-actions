@@ -454,10 +454,11 @@
             const simplifiedMain = metrics.mainSkillName.replace(/\(.*\)/, '').trim();
             const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
 
+            // MODIFIED: The layout of the right-hand side is changed here.
             return `
                 <div class="action-row bg-gray-800 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-700/80 hover:ring-2 hover:ring-blue-600 ${isExpanded ? 'expanded ring-2 ring-blue-500' : ''}" data-action-name="${action.Action}">
                     <div class="p-4">
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 gap-x-4">
                             <div>
                                 <h3 class="font-bold text-lg text-white">${action.Action}</h3>
                                 <div class="tooltip">
@@ -466,8 +467,10 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="font-semibold text-white">Avg. Successes: ${metrics.avgSuccesses.toFixed(2)}</p>
-                                <p class="text-sm text-gray-400">Dice Pool: ${metrics.dicePool}d10</p>
+                                <p class="font-semibold text-white">Dice Pool: ${metrics.dicePool}d10</p>
+                                <p class="text-sm text-gray-400">
+                                    Success: ${metrics.successThreshold}+ (μ=${metrics.avgSuccesses.toFixed(2)})
+                                </p>
                             </div>
                         </div>
                         <div class="action-details mt-4 pt-4 border-t border-gray-700 text-sm">
