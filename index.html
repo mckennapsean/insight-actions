@@ -65,11 +65,7 @@
             <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Insight Action Analyzer</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <input type="text" id="searchInput" placeholder="Search for an action... (e.g., 'sneak', 'intimidate')" class="lg:col-span-2 w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                     <div class="flex items-center">
-                        <label for="targetSuccesses" class="text-sm mr-2 whitespace-nowrap">Target:</label>
-                        <input type="number" id="targetSuccesses" value="1" min="1" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
+                <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
                     <div class="flex items-center">
                          <label for="sortOrder" class="text-sm mr-2">Sort:</label>
                         <select id="sortOrder" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -327,7 +323,6 @@
         const actionListEl = document.getElementById('actionList');
         const searchInputEl = document.getElementById('searchInput');
         const sortOrderEl = document.getElementById('sortOrder');
-        const targetSuccessesEl = document.getElementById('targetSuccesses');
 
         /**
          * Generates the HTML for the character sheet based on the schema.
@@ -370,7 +365,6 @@
         function renderActionList() {
             const searchTerm = searchInputEl.value.toLowerCase();
             const sortBy = sortOrderEl.value;
-            const targetSuccesses = parseInt(targetSuccessesEl.value, 10) || 1;
 
             // 1. Filter
             const filteredActions = actionsData.filter(action => {
@@ -558,7 +552,6 @@
             actionListEl.addEventListener('click', handleActionListClick);
             searchInputEl.addEventListener('input', renderActionList);
             sortOrderEl.addEventListener('change', renderActionList);
-            targetSuccessesEl.addEventListener('input', renderActionList);
 
             // NEW: Event listener for the toggle button
             const toggleBtn = document.getElementById('toggleCharacterPanel');
