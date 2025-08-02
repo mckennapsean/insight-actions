@@ -278,18 +278,68 @@
         };
 
         const synonymDictionary = {
-            'stealth': ['sneak', 'hide', 'conceal', 'camouflage'],
-            'sneak': ['stealth', 'hide', 'conceal', 'camouflage'],
-            'hide': ['stealth', 'sneak', 'conceal', 'camouflage'],
-            'persuade': ['convince', 'bluff', 'negotiate', 'fascinate', 'seduce', 'intimidate', 'daunt'],
-            'convince': ['persuade', 'bluff', 'negotiate', 'fascinate', 'seduce'],
-            'attack': ['strike', 'assault', 'charge', 'rush', 'grapple', 'trip', 'tumble'],
-            'search': ['find', 'spot', 'perceive', 'observe', 'track', 'detect'],
-            'find': ['search', 'spot', 'perceive', 'observe', 'track', 'detect'],
-            'craft': ['make', 'build', 'create', 'repair', 'butcher', 'cook'],
-            'make': ['craft', 'build', 'create', 'repair'],
-            'resist': ['endure', 'withstand', 'block', 'defend', 'dodge'],
-            'dodge': ['resist', 'block', 'defend']
+            // --- Social & Influence ---
+            'talk': ['speak', 'convince', 'persuade', 'negotiate', 'bluff', 'lie', 'interrogate', 'taunt', 'cant', 'fascinate', 'seduce', 'intimidate', 'daunt', 'leadership', 'motivate', 'perform'],
+            'persuade': ['convince', 'negotiate', 'bluff', 'fascinate', 'seduce', 'influence', 'talk'],
+            'convince': ['persuade', 'negotiate', 'bluff', 'fascinate', 'seduce', 'influence', 'talk'],
+            'negotiate': ['bargain', 'haggle', 'convince', 'persuade', 'talk'],
+            'bluff': ['lie', 'deceive', 'mislead', 'trick', 'talk'],
+            'lie': ['bluff', 'deceive', 'mislead', 'trick'],
+            'intimidate': ['daunt', 'threaten', 'scare', 'frighten', 'terrify', 'torture'],
+            'daunt': ['intimidate', 'threaten', 'scare', 'frighten', 'terrify'],
+            'motivate': ['inspire', 'encourage', 'lead', 'boost morale', 'loyalty'],
+            'lead': ['motivate', 'inspire', 'command', 'guide', 'leadership'],
+            'perform': ['sing', 'play', 'act', 'dance', 'blend in'],
+
+            // --- Stealth & Deception ---
+            'stealth': ['sneak', 'hide', 'conceal', 'camouflage', 'disguise', 'move silent'],
+            'sneak': ['stealth', 'hide', 'conceal', 'camouflage', 'disguise', 'move silent'],
+            'hide': ['stealth', 'sneak', 'conceal', 'camouflage', 'disguise'],
+            'conceal': ['stealth', 'sneak', 'hide', 'camouflage', 'disguise'],
+            'disguise': ['camouflage', 'impersonate', 'hide', 'conceal'],
+            'pickpocket': ['steal', 'pilfer', 'thieve', 'sleight of hand'],
+            'steal': ['pickpocket', 'pilfer', 'thieve'],
+            'lockpick': ['disable device', 'open lock'],
+
+            // --- Combat & Physical Action ---
+            'attack': ['strike', 'fight', 'assault', 'charge', 'rush', 'grapple', 'trip', 'tumble', 'hit', 'disarm', 'bull rush'],
+            'strike': ['attack', 'fight', 'hit'],
+            'fight': ['attack', 'strike', 'combat', 'brawl'],
+            'block': ['defend', 'parry', 'resist', 'withstand', 'dodge', 'arrow catching'],
+            'defend': ['block', 'parry', 'resist', 'withstand', 'dodge', 'guard'],
+            'dodge': ['evade', 'avoid', 'block', 'defend', 'tumble'],
+            'throw': ['hurl', 'toss', 'fling'],
+            'jump': ['leap', 'bound', 'hop'],
+            'climb': ['scale', 'ascend'],
+            'swim': ['dive', 'wade'],
+
+            // --- Perception & Investigation ---
+            'search': ['find', 'spot', 'perceive', 'observe', 'track', 'detect', 'look', 'investigate', 'examine', 'scrutinize', 'appraise'],
+            'find': ['search', 'spot', 'perceive', 'observe', 'track', 'detect', 'locate'],
+            'observe': ['watch', 'see', 'spot', 'perceive', 'notice', 'search', 'sense'],
+            'detect': ['find', 'notice', 'sense', 'perceive', 'search'],
+            'track': ['follow', 'trail', 'hunt', 'pursue', 'survival'],
+            'appraise': ['evaluate', 'value', 'assess', 'judge', 'price', 'examine'],
+            'study': ['learn', 'research', 'examine', 'analyze', 'investigate', 'recall', 'understand'],
+            'understand': ['comprehend', 'decipher', 'interpret', 'grasp', 'fathom', 'riddle', 'code breaking'],
+            'recall': ['remember', 'recollect', 'know'],
+            'sense': ['perceive', 'feel', 'detect', 'intuition', 'empathy', 'sense motive'],
+
+            // --- Crafting & Creation ---
+            'craft': ['make', 'build', 'create', 'repair', 'butcher', 'cook', 'forge', 'construct', 'alchemy', 'poison'],
+            'make': ['craft', 'build', 'create', 'repair', 'construct'],
+            'repair': ['fix', 'mend', 'restore', 'disable device'],
+            'fix': ['repair', 'mend', 'restore'],
+            'cook': ['butcher', 'prepare food'],
+
+            // --- Endurance & Resistance ---
+            'resist': ['endure', 'withstand', 'block', 'defend', 'survive', 'tolerate', 'health', 'willpower'],
+            'endure': ['resist', 'withstand', 'survive', 'last', 'tolerate', 'breath holding'],
+            'heal': ['first aid', 'medicine', 'surgery', 'restore'],
+
+            // --- Magic & Supernatural ---
+            'magic': ['spell', 'chant', 'ritual', 'divine', 'psionic', 'enchant', 'scroll'],
+            'spell': ['magic', 'chant', 'ritual', 'incantation']
         };
 
         // --- APP STATE ---
