@@ -394,7 +394,7 @@
          * @returns {number} The stored value or 0.
          */
         function getCharValue(key) {
-            return parseInt(characterData[key] || 0, 10);
+            return parseInt(characterData[key] || '0', 10);
         }
 
         // --- DOM & RENDERING ---
@@ -461,11 +461,21 @@
                 const mainSkill = action['Main Skill'];
                 const bonusSkill = action['Bonus Skill'];
                 const mainSkillName = mainSkill.split(' (')[0];
-                const bonusSkillName = bonusSkill.split(' (')[0];
+                let bonusSkillName = bonusSkill.split(' (')[0];
+
+                // NEW: Check for the "any relevant" case
+                const isBonusSkillVariable = bonusSkill.toLowerCase().includes('any');
+                if (isBonusSkillVariable) {
+                    bonusSkillName = 'Relevant Knowledge'; // Set a clean name for display
+                }
+
                 const mainSkillAttrAbbr = getAttributeFromSkill(mainSkill);
                 const fullMainSkillAttr = getFullAttributeName(mainSkillAttrAbbr);
                 const primarySkillRank = getCharValue(mainSkillName);
-                const secondarySkillRank = getCharValue(bonusSkillName);
+
+                // MODIFIED: Use 0 if the bonus skill is variable, otherwise get the value
+                const secondarySkillRank = isBonusSkillVariable ? 0 : getCharValue(bonusSkillName);
+
                 const attributeScore = getCharValue(fullMainSkillAttr);
                 const dicePool = attributeScore + secondarySkillRank;
 
@@ -481,7 +491,7 @@
 
                 return {
                     ...action,
-                    metrics: { dicePool, avgSuccesses, mainSkillName, bonusSkillName, fullMainSkillAttr, primarySkillRank, secondarySkillRank, attributeScore, successThreshold }
+                    metrics: { dicePool, avgSuccesses, mainSkillName, bonusSkillName, fullMainSkillAttr, primarySkillRank, secondarySkillRank, attributeScore, successThreshold, isBonusSkillVariable }
                 };
             });
 
@@ -498,10 +508,8 @@
                 return;
             }
 
-            // MODIFIED: Pass the index to the generation function
             actionListEl.innerHTML = actionsWithMetrics.map((action, index) => generateActionRowHTML(action, index)).join('');
 
-            // NEW: Scroll selected item into view after rendering
             if (uiState.selectedActionIndex !== -1) {
                 const selectedElement = document.getElementById(`action-row-${uiState.selectedActionIndex}`);
                 if (selectedElement) {
@@ -512,9 +520,6 @@
 
         /**
          * Generates the HTML for a single action row.
-         * @param {object} action - The action object with its calculated metrics.
-         * @param {number} index - The index of the action in the currently displayed list.
-         * @returns {string} The HTML string for the row.
          */
         function generateActionRowHTML(action, index) {
             const { metrics } = action;
@@ -524,7 +529,9 @@
             const simplifiedMain = metrics.mainSkillName.replace(/\(.*\)/, '').trim();
             const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
 
-            // MODIFIED: Added isSelected check to add the 'selected' class
+            // NEW: Add a star if the bonus skill is variable
+            const bonusSkillDisplay = `${simplifiedBonus}${metrics.isBonusSkillVariable ? ' *' : ''}`;
+
             return `
                 <div class="action-row bg-gray-800 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-700/80 ${isExpanded ? 'expanded' : ''} ${isSelected ? 'selected' : ''}" data-action-name="${action.Action}" id="action-row-${index}">
                     <div class="p-4">
@@ -532,14 +539,14 @@
                             <div>
                                 <h3 class="font-bold text-lg text-white">${action.Action}</h3>
                                 <div class="tooltip">
-                                    <p class="text-sm text-gray-400">${simplifiedMain} + ${simplifiedBonus}</p>
-                                    <span class="tooltiptext">${action['Main Skill']} + ${action['Bonus Skill']}</span>
+                                    <p class="text-sm text-gray-400">${simplifiedMain} + ${bonusSkillDisplay}</p>
+                                    <span class="tooltiptext">${action['Main Skill']} + ${action['Bonus Skill']}${metrics.isBonusSkillVariable ? ' (Using Rank 0)' : ''}</span>
                                 </div>
                             </div>
                             <div class="text-right">
                                 <p class="font-semibold text-white">Dice Pool: ${metrics.dicePool}d10</p>
                                 <p class="text-sm text-gray-400">
-                                    Success: ${metrics.successThreshold}+ (μ ${metrics.avgSuccesses.toFixed(2)})
+                                    Success: ${metrics.successThreshold}+ (Avg: ${metrics.avgSuccesses.toFixed(2)})
                                 </p>
                             </div>
                         </div>
