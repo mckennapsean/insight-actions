@@ -271,14 +271,19 @@
             { "Action": "Initiative Roll", "Page": 124, "Main Skill": "Any Combat Skill (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "" }
         ];
 
+        const specializedSkills = new Set([
+            'Camouflage', 'Quick Dodge', 'Hypnosis', 'Interpreter', 'Enhanced Leadership',
+            'Motivate', 'Logic Recall', 'Sleight of Hand', 'Study', 'Surgery',
+            'Terrifying Look', 'Unarmed Master', 'Ambidextrous'
+        ]);
+
         const characterSchema = {
-            "Body Control (BC)": ["Agility", "Balance", "Crafting", "Dexterity", "Mobility", "Precision", "Reaction", "Swimming", "Any Melee", "Unarmed (Small) Melee", "Archery", "Crossbows", "Slings", "Blowguns", "Med/Lrg Melee", "Small & Unarmed Melee", "Introspection", "Any Combat Skill"],
-            "Physical Fitness (PF)": ["Flexibility", "Calmness", "Endurance", "Haste", "Power", "Constitution", "Sense", "Appearance"],
-            "Reason (RE)": ["Idea", "Code Insight", "Item Insight", "Creature Insight", "Anatomy", "Perception", "Divine Insight", "Reaction", "Comprehend", "Empathy", "Will", "Hypnosis", "Introspection", "Intuition", "Motive Insight", "Logic Recall", "Recall", "Serenity", "Study"],
-            "Social (SO)": ["Convince", "Perform", "Talk", "Calmness", "Code Insight", "Empathy", "Leadership", "Patience", "Motivate"],
             "Strength (ST)": ["Daunt", "Brawn", "Power", "Toughness", "Terrifying Look"],
-            "Knowledge (KN)": ["Item Knowledge", "Anatomy", "Melee Weapons Knowledge", "Food", "Alchemy", "Magic", "Poisons", "Metal Items Knowledge", "Cloth Items Knowledge", "Mechanical Devices", "Rite", "Wood, Item", "Medical", "Nature", "Public", "Law", "Interpreter", "Music Instrument", "Singing", "Motive Insight", "Languages", "Surgery", "Martial Arts", "Simple Ranged Weapon", "Mechanical Weapons", "Blowguns Knowledge"],
-            "Special": ["Camouflage", "Quick Dodge", "Enhanced Leadership", "Hypnosis", "Logic Recall", "Motivate", "Study", "Surgery", "Terrifying Look", "Unarmed Master", "Sleight of Hand", "Ambidextrous"]
+            "Physical Fitness (PF)": ["Flexibility", "Calmness", "Endurance", "Haste", "Power", "Constitution", "Sense", "Appearance"],
+            "Body Control (BC)": ["Agility", "Balance", "Crafting", "Dexterity", "Mobility", "Precision", "Reaction", "Swimming", "Any Melee", "Unarmed (Small) Melee", "Archery", "Crossbows", "Slings", "Blowguns", "Med/Lrg Melee", "Small & Unarmed Melee", "Introspection", "Any Combat Skill", "Sleight of Hand", "Quick Dodge", "Unarmed Master", "Ambidextrous", "Camouflage"],
+            "Reason (RE)": ["Idea", "Code Insight", "Item Insight", "Creature Insight", "Anatomy", "Perception", "Divine Insight", "Reaction", "Comprehend", "Empathy", "Will", "Hypnosis", "Introspection", "Intuition", "Motive Insight", "Logic Recall", "Recall", "Serenity", "Study"],
+            "Social (SO)": ["Convince", "Perform", "Talk", "Calmness", "Code Insight", "Empathy", "Leadership", "Patience", "Motivate", "Enhanced Leadership"],
+            "Knowledge (KN)": ["Item Knowledge", "Anatomy", "Melee Weapons Knowledge", "Food", "Alchemy", "Magic", "Poisons", "Metal Items Knowledge", "Cloth Items Knowledge", "Mechanical Devices", "Rite", "Wood, Item", "Medical", "Nature", "Public", "Law", "Interpreter", "Music Instrument", "Singing", "Motive Insight", "Languages", "Surgery", "Martial Arts", "Simple Ranged Weapon", "Mechanical Weapons", "Blowguns Knowledge"]
         };
 
         // UPDATED: New success range table based on user feedback
@@ -287,6 +292,9 @@
         };
 
         const synonymDictionary = {
+            // --- Meta Categories ---
+            'combat': ['attack', 'strike', 'fight', 'block', 'defend', 'dodge', 'parry', 'grapple', 'disarm', 'charge', 'rush', 'initiative', 'armor', 'arrow catching', 'counterattack'],
+
             // --- Social & Influence ---
             'talk': ['speak', 'convince', 'persuade', 'negotiate', 'bluff', 'lie', 'interrogate', 'taunt', 'cant', 'fascinate', 'seduce', 'intimidate', 'daunt', 'leadership', 'motivate', 'perform'],
             'persuade': ['convince', 'negotiate', 'bluff', 'fascinate', 'seduce', 'influence', 'talk'],
@@ -409,8 +417,6 @@
         function renderCharacterSheet() {
             let html = '';
             for (const attribute in characterSchema) {
-                if (attribute === "Special") continue;
-
                 html += `
                     <details class="bg-gray-700/50 rounded-lg mb-3">
                         <summary class="font-bold text-lg cursor-pointer p-3 flex justify-between items-center">
@@ -423,13 +429,15 @@
                         <div class="p-3 border-t border-gray-600">
                 `;
 
-                // NEW: Sort the skills alphabetically before rendering them
                 const sortedSkills = [...characterSchema[attribute]].sort();
 
                 sortedSkills.forEach(skill => {
+                    const isSpecial = specializedSkills.has(skill);
+                    const skillDisplayName = isSpecial ? `${skill} (special)` : skill;
+
                     html += `
                         <div class="grid grid-cols-5 gap-2 items-center mb-1">
-                            <label class="col-span-3 text-sm">${skill}:</label>
+                            <label class="col-span-3 text-sm ${isSpecial ? 'text-blue-300' : ''}">${skillDisplayName}:</label>
                             <input type="number" min="0" data-type="skill" data-key="${skill}" value="${getCharValue(skill)}" class="col-span-2 bg-gray-800 border border-gray-600 rounded px-2 py-1">
                         </div>
                     `;
