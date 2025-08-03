@@ -97,7 +97,10 @@
 
             <!-- Left Column: Character Sheet -->
             <aside id="characterPanel" class="lg:col-span-1 bg-gray-800 p-4 rounded-lg h-fit sticky top-4">
-                <h2 class="text-2xl font-bold mb-4">My Character</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">My Character</h2>
+                    <button id="resetCharacterBtn" class="text-sm text-blue-400 hover:text-blue-300 hover:underline">Reset</button>
+                </div>
                 <div id="characterSheet">
                     <!-- Character sheet will be dynamically generated here -->
                 </div>
@@ -734,6 +737,17 @@
             // Add this new line at the end of the init function
             document.addEventListener('keydown', handleGlobalKeyDown);
         }
+
+        const resetBtn = document.getElementById('resetCharacterBtn');
+        resetBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset all character stats?')) {
+                localStorage.removeItem('insightCharacterData');
+                characterData = {}; // Clear the in-memory data
+                loadCharacterData(); // Reload with defaults
+                renderCharacterSheet();
+                renderActionList();
+            }
+        });
 
         // Start the app
         document.addEventListener('DOMContentLoaded', init);
