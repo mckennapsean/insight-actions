@@ -654,9 +654,7 @@
             if (e.target.tagName === 'INPUT') {
                 switch (e.key) {
                     case 'Escape':
-                        searchInputEl.value = '';
-                        searchInputEl.blur();
-                        renderActionList();
+                        clearActionUiState();
                         break;
                     case 'ArrowDown':
                         // NEW: Move focus from search to the list
@@ -733,7 +731,19 @@
                         }
                     }
                     break;
+
+                case 'Escape':
+                    e.preventDefault();
+                    clearActionUiState();
+                    break;
             }
+        }
+
+        function clearActionUiState() {
+            searchInputEl.value = '';
+            uiState.selectedActionIndex = -1;
+            uiState.expandedAction = null;
+            renderActionList();
         }
 
         /**
