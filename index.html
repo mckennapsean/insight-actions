@@ -121,154 +121,164 @@
         // This section contains all the game data needed for the app.
 
         const actionsData = [
-            { "Action": "Acrobatics Roll", "Page": 100, "Main Skill": "Agility (BC)", "Bonus Skill": "Balance (BC)", "Notes": "" },
-            { "Action": "Animal Training", "Page": 100, "Main Skill": "Convince (SO)", "Bonus Skill": "Creature Insight (RE)", "Notes": "vs. Willpower (Morale + Courage) *" },
-            { "Action": "Appraise", "Page": 100, "Main Skill": "Idea (RE)", "Bonus Skill": "any relevant Item Knowledge (KN)", "Notes": "" },
-            { "Action": "Appraise, Hunch", "Page": 101, "Main Skill": "Idea (RE)", "Bonus Skill": "Item Insight (RE)", "Notes": "" },
-            { "Action": "Armor Use", "Page": 101, "Main Skill": "Mobility (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
-            { "Action": "Autopsy", "Page": 108, "Main Skill": "Idea (RE)", "Bonus Skill": "Anatomy (KN)", "Notes": "" },
-            { "Action": "Balance Roll", "Page": 108, "Main Skill": "Balance (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
-            { "Action": "Blend In", "Page": 108, "Main Skill": "Perform (SO)", "Bonus Skill": "Talk (SO)", "Notes": "" },
-            { "Action": "Bluff", "Page": 109, "Main Skill": "Convince (SO)", "Bonus Skill": "Perform (SO)", "Notes": "vs. Sense Motive." },
-            { "Action": "Breath Holding", "Page": 110, "Main Skill": "Endurance (PF)", "Bonus Skill": "Calmness (PF)", "Notes": "" },
-            { "Action": "Butchering", "Page": 110, "Main Skill": "Crafting (BC)", "Bonus Skill": "Any Melee Weapons Knowledge (KN)", "Notes": "" },
-            { "Action": "Camouflage Roll, Disguise", "Page": 110, "Main Skill": "Camouflage (BC special)", "Bonus Skill": "Perform (SO)", "Notes": "" },
-            { "Action": "Camouflage Roll, Cloaking", "Page": 110, "Main Skill": "Camouflage (BC special)", "Bonus Skill": "Calmness (SO)", "Notes": "" },
-            { "Action": "Cant", "Page": 110, "Main Skill": "Talk (SO)", "Bonus Skill": "Code Insight (SO)", "Notes": "(hidden communication)" },
-            { "Action": "Climb Roll", "Page": 110, "Main Skill": "Mobility (BC)", "Bonus Skill": "Balance (BC)", "Notes": "" },
-            { "Action": "Code Breaking", "Page": 111, "Main Skill": "Code Insight (RE)", "Bonus Skill": "Idea (RE)", "Notes": "" },
-            { "Action": "Conceal, on Body", "Page": 111, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "" },
-            { "Action": "Conceal, in surroundings/tracks", "Page": 111, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Perception (RE)", "Notes": "" },
-            { "Action": "Cooking", "Page": 112, "Main Skill": "Crafting (BC)", "Bonus Skill": "Food (KN)", "Notes": "" },
-            { "Action": "Crafting, Alchemy", "Page": 112, "Main Skill": "Crafting (BC)", "Bonus Skill": "Alchemy (KN)", "Notes": "" },
-            { "Action": "Crafting, Item", "Page": 112, "Main Skill": "Crafting (BC)", "Bonus Skill": "any Item Knowledge (KN)", "Notes": "" },
-            { "Action": "Crafting, Magic Item", "Page": 113, "Main Skill": "Crafting (BC)", "Bonus Skill": "any Magic (KN) Skill", "Notes": "REQ. Magic Focus (RE);" },
-            { "Action": "Crafting, Poison", "Page": 114, "Main Skill": "Crafting (BC)", "Bonus Skill": "Poisons (KN)", "Notes": "" },
-            { "Action": "Crafting, Scroll", "Page": 115, "Main Skill": "Crafting (BC)", "Bonus Skill": "any Magic (KN) Skill", "Notes": "" },
-            { "Action": "Crafting, Weapon", "Page": 116, "Main Skill": "Crafting (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "" },
-            { "Action": "Crafting, Metal Armor", "Page": 116, "Main Skill": "Crafting (BC)", "Bonus Skill": "Metal Items Knowledge (KN)", "Notes": "" },
-            { "Action": "Crafting, Non-metal Armor", "Page": 116, "Main Skill": "Crafting (BC)", "Bonus Skill": "Cloth Items Knowledge (KN)", "Notes": "" },
-            { "Action": "Daunt Roll", "Page": 116, "Main Skill": "Daunt (ST)", "Bonus Skill": "Talk (SO)", "Notes": "vs. Complexity Level (Influence + Self-Insight Roll)" },
-            { "Action": "Detect Magic Roll", "Page": 118, "Main Skill": "Perception (RE)", "Bonus Skill": "Code Insight (RE)", "Notes": "" },
-            { "Action": "Detect Poison", "Page": 119, "Main Skill": "Perception (RE)", "Bonus Skill": "Poisons (KN)", "Notes": "" },
-            { "Action": "Disable Device/Repair Device", "Page": 119, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Mechanical Devices (KN)", "Notes": "" },
-            { "Action": "Divine Chanting", "Page": 119, "Main Skill": "Divine Insight (RE)", "Bonus Skill": "any Rite (KN)", "Notes": "" },
-            { "Action": "Dodge Roll", "Page": 119, "Main Skill": "Agility (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
-            { "Action": "Dodge Roll, Quick", "Page": 119, "Main Skill": "Quick Dodge (BC special)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
-            { "Action": "Emotion Control", "Page": 120, "Main Skill": "Perform (SO)", "Bonus Skill": "Will (RE)", "Notes": "" },
-            { "Action": "Empathy Roll", "Page": 120, "Main Skill": "Empathy (SO)", "Bonus Skill": "Comprehend (RE)", "Notes": "" },
-            { "Action": "Endurance Roll", "Page": 120, "Main Skill": "Endurance (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
-            { "Action": "Escape Artist", "Page": 120, "Main Skill": "Flexibility (PF)", "Bonus Skill": "Dexterity (BC)", "Notes": "" },
-            { "Action": "Fall Roll/Falling", "Page": 120, "Main Skill": "Reaction (RE)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
-            { "Action": "Fascinate", "Page": 121, "Main Skill": "Talk (SO)", "Bonus Skill": "Relevant Knowledge (KN) Skill", "Notes": "vs. Idea (RE) + the same Knowledge (KN) Skill." },
-            { "Action": "Fire Building", "Page": 122, "Main Skill": "Crafting (BC)", "Bonus Skill": "Any Wood, Item (KN)", "Notes": "" },
-            { "Action": "First Aid", "Page": 122, "Main Skill": "Medical (KN)", "Bonus Skill": "Anatomy (KN)", "Notes": "" },
-            { "Action": "First Aid, Poison", "Page": 122, "Main Skill": "Medical (KN)", "Bonus Skill": "Poisons (KN)", "Notes": "" },
-            { "Action": "Forage (Option 1)", "Page": 122, "Main Skill": "Nature (KN)", "Bonus Skill": "Perception (RE)", "Notes": "" },
-            { "Action": "Forage (Option 2)", "Page": 122, "Main Skill": "Food (KN)", "Bonus Skill": "Perception (RE)", "Notes": "" },
-            { "Action": "Health Roll (Option 1)", "Page": 123, "Main Skill": "Constitution (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
-            { "Action": "Health Roll (Option 2)", "Page": 123, "Main Skill": "Toughness (ST)", "Bonus Skill": "Will (RE)", "Notes": "" },
-            { "Action": "Hypnotism Roll", "Page": 123, "Main Skill": "Hypnosis (RE special)", "Bonus Skill": "Comprehend (RE)", "Notes": "vs. Willpower Roll." },
-            { "Action": "Information Gathering, Analytic", "Page": 123, "Main Skill": "Idea (RE)", "Bonus Skill": "Code Insight (RE)", "Notes": "" },
-            { "Action": "Information Gathering, Public", "Page": 123, "Main Skill": "Idea (RE)", "Bonus Skill": "Public (KN)", "Notes": "" },
-            { "Action": "Information Gathering, Law", "Page": 124, "Main Skill": "Idea (RE)", "Bonus Skill": "Law (KN)", "Notes": "" },
-            { "Action": "Interpreter Roll", "Page": 125, "Main Skill": "Talk (SO)", "Bonus Skill": "Interpreter (KN special)", "Notes": "" },
-            { "Action": "Interrogation", "Page": 125, "Main Skill": "Talk (SO)", "Bonus Skill": "Perception (RE)", "Notes": "vs. Willpower." },
-            { "Action": "Intimidation", "Page": 125, "Main Skill": "Convince (SO)", "Bonus Skill": "Brawn (ST)", "Notes": "vs. Willpower (reduce by Daunt Roll)." },
-            { "Action": "Intuition Roll", "Page": 126, "Main Skill": "Intuition (RE)", "Bonus Skill": "Introspection (RE)", "Notes": "" },
-            { "Action": "Jump", "Page": 126, "Main Skill": "Mobility (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
-            { "Action": "Law Roll", "Page": 126, "Main Skill": "Convince (SO)", "Bonus Skill": "Law (KN)", "Notes": "" },
-            { "Action": "Leadership Roll", "Page": 126, "Main Skill": "Leadership (SO)", "Bonus Skill": "Talk (SO)", "Notes": "" },
-            { "Action": "Lock Picking", "Page": 127, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Mechanical Devices (KN)", "Notes": "" },
-            { "Action": "Loyalty Roll", "Page": 127, "Main Skill": "Enhanced Leadership (SO special)", "Bonus Skill": "Motivate (SO special)", "Notes": "" },
-            { "Action": "Magic Spell Casting", "Page": 128, "Main Skill": "Magic Insight (RE)", "Bonus Skill": "any Magic (KN) skill", "Notes": "Additional details on page 251." },
-            { "Action": "Meditation Roll", "Page": 128, "Main Skill": "Serenity (RE)", "Bonus Skill": "Calmness (PF)", "Notes": "" },
-            { "Action": "Morale Boost", "Page": 128, "Main Skill": "Motivate (SO special)", "Bonus Skill": "Motive Insight (RE)", "Notes": "" },
-            { "Action": "Motivate/Demotivate", "Page": 129, "Main Skill": "Motivate (SO special)", "Bonus Skill": "Motive Insight (RE)", "Notes": "vs. Self-Insight Roll." },
-            { "Action": "Navigation", "Page": 129, "Main Skill": "Idea (RE)", "Bonus Skill": "Nature (KN)", "Notes": "" },
-            { "Action": "Negotiation", "Page": 129, "Main Skill": "Convince (SO)", "Bonus Skill": "Idea (RE)", "Notes": "" },
-            { "Action": "Observation", "Page": 130, "Main Skill": "Creature Insight (RE)", "Bonus Skill": "Perception (RE)", "Notes": "" },
-            { "Action": "Patience Roll", "Page": 130, "Main Skill": "Patience (SO)", "Bonus Skill": "Will (RE)", "Notes": "(Anger Management)" },
-            { "Action": "Perception Roll, Active", "Page": 130, "Main Skill": "Perception (RE)", "Bonus Skill": "Sense (PF)", "Notes": "" },
-            { "Action": "Perception Roll, Passive", "Page": 130, "Main Skill": "Sense (PF)", "Bonus Skill": "Perception (RE)", "Notes": "" },
-            { "Action": "Perform, Instrumental", "Page": 131, "Main Skill": "Perform (SO)", "Bonus Skill": "any Music Instrument (KN) skill", "Notes": "" },
-            { "Action": "Perform, Singing", "Page": 132, "Main Skill": "Perform (SO)", "Bonus Skill": "Singing (KN)", "Notes": "" },
-            { "Action": "Persuasion", "Page": 132, "Main Skill": "Convince (SO)", "Bonus Skill": "Motive Insight (RE)", "Notes": "" },
-            { "Action": "Pick Pockets", "Page": 133, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "(stealing in general). vs. Passive Perception Roll" },
-            { "Action": "Precision Roll", "Page": 133, "Main Skill": "Precision (BC)", "Bonus Skill": "Dexterity (BC)", "Notes": "" },
-            { "Action": "Psychology", "Page": 133, "Main Skill": "Idea (RE)", "Bonus Skill": "Motive Insight (KN)", "Notes": "" },
-            { "Action": "Reaction Roll", "Page": 133, "Main Skill": "Reaction (BC)", "Bonus Skill": "Perception (RE)", "Notes": "" },
-            { "Action": "Recall Roll", "Page": 134, "Main Skill": "Recall (RE)", "Bonus Skill": "Idea (RE)", "Notes": "" },
-            { "Action": "Recall Roll, Logic", "Page": 134, "Main Skill": "Logic Recall (RE special)", "Bonus Skill": "Idea (RE)", "Notes": "" },
-            { "Action": "Resist Cold", "Page": 135, "Main Skill": "Toughness (ST)", "Bonus Skill": "Constitution (PF)", "Notes": "" },
-            { "Action": "Resist Diseases", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Endurance (PF)", "Notes": "" },
-            { "Action": "Resist Fire", "Page": 135, "Main Skill": "Toughness (ST)", "Bonus Skill": "Constitution (PF)", "Notes": "" },
-            { "Action": "Resist Magic (Option 1)", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
-            { "Action": "Resist Magic (Option 2)", "Page": 135, "Main Skill": "Reaction (RE)", "Bonus Skill": "Constitution (PF)", "Notes": "" },
-            { "Action": "Resist Nausea", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
-            { "Action": "Resist Pain", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
-            { "Action": "Resist Poison", "Page": 135, "Main Skill": "Constitution (PF)", "Bonus Skill": "Endurance (PF)", "Notes": "" },
-            { "Action": "Riding Roll", "Page": 136, "Main Skill": "Balance (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "" },
-            { "Action": "Rope Use (Option 2)", "Page": 137, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Brawn (ST)", "Notes": "with no Action Improvements." },
-            { "Action": "Rope Use (Option 3)", "Page": 137, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "with no Action Improvements." },
-            { "Action": "Rowing", "Page": 137, "Main Skill": "Brawn (ST)", "Bonus Skill": "Power (PF)", "Notes": "" },
-            { "Action": "Self-Insight Roll", "Page": 137, "Main Skill": "Introspection (BC)", "Bonus Skill": "Comprehend (RE)", "Notes": "" },
-            { "Action": "Seduce", "Page": 138, "Main Skill": "Talk (SO)", "Bonus Skill": "Appearance (PF)", "Notes": "" },
-            { "Action": "Sense Intention (creature)", "Page": 138, "Main Skill": "Creature Insight (RE)", "Bonus Skill": "Comprehend (RE)", "Notes": "" },
-            { "Action": "Sense Motive", "Page": 138, "Main Skill": "Motive Insight (RE)", "Bonus Skill": "Idea (RE)", "Notes": "vs. Bluff." },
-            { "Action": "Sleight of Hand Roll", "Page": 139, "Main Skill": "Sleight of Hand (BC special)", "Bonus Skill": "Haste (PF)", "Notes": "" },
-            { "Action": "Sneak Roll, Hide", "Page": 139, "Main Skill": "Agility (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "vs. Perception Roll (active or passive)." },
-            { "Action": "Sneak Roll, Exposed Hiding", "Page": 139, "Main Skill": "Agility (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "vs. Perception Roll (Active)." },
-            { "Action": "Sneak Roll, Move Silent", "Page": 139, "Main Skill": "Agility (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "vs. Perception Roll (active or passive)." },
-            { "Action": "Sneak Roll, Move Silent & Hidden", "Page": 140, "Main Skill": "Agility (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "vs. Perception Roll (active or passive)." },
-            { "Action": "Strength Roll", "Page": 141, "Main Skill": "Brawn (ST)", "Bonus Skill": "Power (ST)", "Notes": "" },
-            { "Action": "Study Roll (General)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "relevant knowledge (KN) skill", "Notes": "" },
-            { "Action": "Study Roll (Weapons and Armor)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "relevant knowledge (KN) skill", "Notes": "" },
-            { "Action": "Study Roll (Alchemy)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "Alchemy (KN)", "Notes": "" },
-            { "Action": "Study Roll (People)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "Motive Insight (RE)", "Notes": "" },
-            { "Action": "Study Roll (Sample)", "Page": 142, "Main Skill": "Study (RE special)", "Bonus Skill": "Nature (KN)", "Notes": "" },
-            { "Action": "Surgery Roll", "Page": 143, "Main Skill": "Surgery (KN special)", "Bonus Skill": "Idea (RE)", "Notes": "" },
-            { "Action": "Survival", "Page": 143, "Main Skill": "Idea (RE)", "Bonus Skill": "Nature (KN)", "Notes": "" },
-            { "Action": "Swim Roll", "Page": 143, "Main Skill": "Swimming (BC)", "Bonus Skill": "Flexibility (PF)", "Notes": "" },
-            { "Action": "Terrifying Gaze", "Page": 143, "Main Skill": "Terrifying Look (ST special)", "Bonus Skill": "Perform (SO)", "Notes": "" },
-            { "Action": "Throw Roll", "Page": 143, "Main Skill": "Dexterity (BC)", "Bonus Skill": "Power (PF)", "Notes": "" },
-            { "Action": "Torture", "Page": 144, "Main Skill": "Convince (SO)", "Bonus Skill": "Will (RE)", "Notes": "vs. Resist Pain." },
-            { "Action": "Tracking", "Page": 144, "Main Skill": "Perception (RE)", "Bonus Skill": "Idea (RE)", "Notes": "" },
-            { "Action": "Understand (General - Option 1)", "Page": 144, "Main Skill": "Idea (RE)", "Bonus Skill": "Comprehend (RE)", "Notes": "" },
-            { "Action": "Understand (General - Option 2)", "Page": 144, "Main Skill": "Idea (RE)", "Bonus Skill": "Law (KN)", "Notes": "" },
-            { "Action": "Understand (General - Option 3)", "Page": 144, "Main Skill": "Idea (RE)", "Bonus Skill": "Public (KN)", "Notes": "" },
-            { "Action": "Understand (Objects - Option 1)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "relevant knowledge (KN) skill", "Notes": "" },
-            { "Action": "Understand (Objects - Option 2)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "Item Insight (RE)", "Notes": "" },
-            { "Action": "Understand (Text)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "Languages (KN)", "Notes": "" },
-            { "Action": "Understand (Creature)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "Creature Insight (RE)", "Notes": "" },
-            { "Action": "Understand (Riddles)", "Page": 145, "Main Skill": "Idea (RE)", "Bonus Skill": "Code Insight (RE)", "Notes": "" },
-            { "Action": "Willpower Roll", "Page": 145, "Main Skill": "Will (RE)", "Bonus Skill": "Introspection (RE)", "Notes": "" },
-            { "Action": "Attack, Standard Melee", "Page": 102, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "vs. Defense Roll, Dodge Roll, or Block" },
-            { "Action": "Attack, Standard Unarmed", "Page": 102, "Main Skill": "Unarmed (Small) Melee (BC)", "Bonus Skill": "Martial Arts (KN)", "Notes": "vs. Defense Roll, Dodge Roll, or Block" },
-            { "Action": "Attack, Acrobatic (Step 1: Roll)", "Page": 102, "Main Skill": "Agility (BC)", "Bonus Skill": "Balance (BC)", "Notes": "REQ. Full Attack." },
-            { "Action": "Attack, Bull Rush", "Page": 103, "Main Skill": "Unarmed Melee (BC)", "Bonus Skill": "Haste (PF)", "Notes": "REQ. Full Attack. vs. Defense Roll or Dodge Roll" },
-            { "Action": "Attack, Charge", "Page": 103, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "REQ. Full Attack, Start 5 tiles from target. vs. Defense Roll, Dodge Roll, or Block." },
-            { "Action": "Attack, Grapple", "Page": 104, "Main Skill": "(Small &) Unarmed Melee (BC)", "Bonus Skill": "Dexterity (BC)", "Notes": "REQ. Full Attack. vs. Grapple Attack, Defense Roll, or Dodge Roll." },
-            { "Action": "Attack, Mounted Archery (Step 1: Ride)", "Page": 105, "Main Skill": "Balance (BC)", "Bonus Skill": "Mobility (BC)", "Notes": "REQ. Quick or Aimed." },
-            { "Action": "Attack, Ranged Bow", "Page": 105, "Main Skill": "Archery (BC)", "Bonus Skill": "Simple Ranged Weapon Knowledge (KN)", "Notes": "REQ. Quick or Aimed. vs. Defense Roll, Ranged." },
-            { "Action": "Attack, Ranged Crossbow", "Page": 105, "Main Skill": "Crossbows (BC)", "Bonus Skill": "Mechanical Weapons Knowledge (KN)", "Notes": "REQ. Quick or Aimed. vs. Defense Roll, Ranged." },
-            { "Action": "Attack, Ranged Slings", "Page": 106, "Main Skill": "Slings (BC)", "Bonus Skill": "Simple Ranged Weapons Knowledge (KN)", "Notes": "REQ. Quick or Aimed. vs. Defense Roll, Ranged." },
-            { "Action": "Attack, Blowguns", "Page": 106, "Main Skill": "Blowguns (BC)", "Bonus Skill": "Blowguns Knowledge (KN)", "Notes": "REQ. Quick or Aimed. vs. Defense Roll, Ranged." },
-            { "Action": "Attack, Sneak", "Page": 106, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "REQ. Full Attack. vs. Defense Roll or Dodge Roll." },
-            { "Action": "Attack, Taunt", "Page": 106, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Talk (SO)", "Notes": "vs. Willpower Roll." },
-            { "Action": "Attack, Thrown Weapon", "Page": 107, "Main Skill": "Any Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "REQ. Full Attack. vs. Defense Roll, Dodge Roll, or Block." },
-            { "Action": "Attack, Trip (Unarmed)", "Page": 107, "Main Skill": "(Small &) Unarmed Melee (BC)", "Bonus Skill": "Martial Arts (KN)", "Notes": "REQ. Full Attack. vs. Defense Roll or Dodge Roll." },
-            { "Action": "Attack, Trip (Armed)", "Page": 107, "Main Skill": "Med/Lrg Melee (BC)", "Bonus Skill": "Melee Weapons Knowledge (KN)", "Notes": "REQ. Full Attack. vs. Defense Roll or Dodge Roll." },
-            { "Action": "Attack, Tumble", "Page": 107, "Main Skill": "Small & Unarmed Melee (BC)", "Bonus Skill": "Quick Dodge (BC special)", "Notes": "REQ. Full Attack." },
-            { "Action": "Block, Arm Block", "Page": 109, "Main Skill": "Haste (PF)", "Bonus Skill": "Reaction (RE)", "Notes": "alternative to Standard Defense Roll." },
-            { "Action": "Block, Unarmed Block", "Page": 109, "Main Skill": "Unarmed Master (BC special)", "Bonus Skill": "Ambidextrous (BC)", "Notes": "alternative to Standard Defense Roll." },
-            { "Action": "Block, Shield Block", "Page": 109, "Main Skill": "Haste (PF)", "Bonus Skill": "Reaction (RE)", "Notes": "alternative to Standard Defense Roll." },
-            { "Action": "Defense Roll, Ranged (Dodge - Step 1)", "Page": 117, "Main Skill": "Reaction (RE)", "Bonus Skill": "Perception (RE)", "Notes": "Dodge Projectiles." },
-            { "Action": "Defense Roll, Ranged (Dodge - Step 2)", "Page": 117, "Main Skill": "Agility (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
-            { "Action": "Defense Roll, Ranged (Block - Step 1)", "Page": 118, "Main Skill": "Reaction (RE)", "Bonus Skill": "Perception (RE)", "Notes": "Shield Block Projectiles." },
-            { "Action": "Defense Roll, Ranged (Block - Step 2)", "Page": 118, "Main Skill": "Haste (PF)", "Bonus Skill": "Reaction (RE)", "Notes": "" },
-            { "Action": "Initiative Adjust Roll", "Page": 124, "Main Skill": "Endurance (PF)", "Bonus Skill": "Will (RE)", "Notes": "" },
-            { "Action": "Initiative Roll", "Page": 124, "Main Skill": "Any Combat Skill (BC)", "Bonus Skill": "Reaction (RE)", "Notes": "" }
+            // --- NON-COMBAT ACTIONS ---
+            { Action: 'Acrobatics Roll', Page: 100, MainSkill: 'Agility (BC)', BonusSkill: 'Balance (BC)', Notes: '', isCombat: false },
+            { Action: 'Animal Training', Page: 100, MainSkill: 'Convince (SO)', BonusSkill: 'Creature Insight (RE)', Notes: 'vs. Willpower (Morale + Courage) *', isCombat: false },
+            { Action: 'Appraise', Page: 100, MainSkill: 'Idea (RE)', BonusSkill: 'any relevant Item Knowledge (KN)', Notes: '', isCombat: false },
+            { Action: 'Appraise, Hunch', Page: 101, MainSkill: 'Idea (RE)', BonusSkill: 'Item Insight (RE)', Notes: '', isCombat: false },
+            { Action: 'Autopsy', Page: 108, MainSkill: 'Idea (RE)', BonusSkill: 'Anatomy (KN)', Notes: '', isCombat: false },
+            { Action: 'Balance Roll', Page: 108, MainSkill: 'Balance (BC)', BonusSkill: 'Flexibility (PF)', Notes: '', isCombat: false },
+            { Action: 'Blend In', Page: 108, MainSkill: 'Perform (SO)', BonusSkill: 'Talk (SO)', Notes: '', isCombat: false },
+            { Action: 'Bluff', Page: 109, MainSkill: 'Convince (SO)', BonusSkill: 'Perform (SO)', Notes: 'vs. Sense Motive. See also: Lie.', isCombat: false },
+            { Action: 'Breath Holding', Page: 110, MainSkill: 'Endurance (PF)', BonusSkill: 'Calmness (PF)', Notes: '', isCombat: false },
+            { Action: 'Butchering', Page: 110, MainSkill: 'Crafting (BC)', BonusSkill: 'Any Melee Weapons Knowledge (KN)', Notes: '', isCombat: false },
+            { Action: 'Camouflage Roll, Disguise', Page: 110, MainSkill: 'Camouflage (BC special)', BonusSkill: 'Perform (SO)', Notes: 'See also: Disguise.', isCombat: false },
+            { Action: 'Camouflage Roll, Cloaking', Page: 110, MainSkill: 'Camouflage (BC special)', BonusSkill: 'Calmness (SO)', Notes: '', isCombat: false },
+            { Action: 'Cant', Page: 110, MainSkill: 'Talk (SO)', BonusSkill: 'Code Insight (SO)', Notes: '(hidden communication)', isCombat: false },
+            { Action: 'Climb Roll', Page: 110, MainSkill: 'Mobility (BC)', BonusSkill: 'Balance (BC)', Notes: '', isCombat: false },
+            { Action: 'Code Breaking', Page: 111, MainSkill: 'Code Insight (RE)', BonusSkill: 'Idea (RE)', Notes: '', isCombat: false },
+            { Action: 'Conceal, on Body', Page: 111, MainSkill: 'Dexterity (BC)', BonusSkill: 'Mobility (BC)', Notes: '', isCombat: false },
+            { Action: 'Conceal, in surroundings/tracks', Page: 111, MainSkill: 'Dexterity (BC)', BonusSkill: 'Perception (RE)', Notes: '', isCombat: false },
+            { Action: 'Cooking', Page: 112, MainSkill: 'Crafting (BC)', BonusSkill: 'Food (KN)', Notes: '', isCombat: false },
+            { Action: 'Crafting, Alchemy', Page: 112, MainSkill: 'Crafting (BC)', BonusSkill: 'Alchemy (KN)', Notes: 'See also: Alchemy Roll.', isCombat: false },
+            { Action: 'Crafting, Item', Page: 112, MainSkill: 'Crafting (BC)', BonusSkill: 'any Item Knowledge (KN)', Notes: 'See also: Repair Items.', isCombat: false },
+            { Action: 'Crafting, Magic Item', Page: 113, MainSkill: 'Crafting (BC)', BonusSkill: 'any Magic (KN) Skill', Notes: 'REQ. Magic Focus (RE); See also: Magic Items, Use.', isCombat: false },
+            { Action: 'Crafting, Poison', Page: 114, MainSkill: 'Crafting (BC)', BonusSkill: 'Poisons (KN)', Notes: '', isCombat: false },
+            { Action: 'Crafting, Scroll', Page: 115, MainSkill: 'Crafting (BC)', BonusSkill: 'any Magic (KN) Skill', Notes: 'See also: Scroll Crafting.', isCombat: false },
+            { Action: 'Crafting, Weapon', Page: 116, MainSkill: 'Crafting (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'See also: Repair Weapons.', isCombat: false },
+            { Action: 'Crafting, Metal Armor', Page: 116, MainSkill: 'Crafting (BC)', BonusSkill: 'Metal Items Knowledge (KN)', Notes: '', isCombat: false },
+            { Action: 'Crafting, Non-metal Armor', Page: 116, MainSkill: 'Crafting (BC)', BonusSkill: 'Cloth Items Knowledge (KN)', Notes: '', isCombat: false },
+            { Action: 'Crafts Master Roll', Page: 60, MainSkill: '', BonusSkill: '', Notes: 'See rulebook for details.', isCombat: false },
+            { Action: 'Creature Connection Roll', Page: 68, MainSkill: '', BonusSkill: '', Notes: 'See rulebook for details.', isCombat: false },
+            { Action: 'Daunt Roll', Page: 116, MainSkill: 'Daunt (ST)', BonusSkill: 'Talk (SO)', Notes: 'vs. Complexity Level (Influence + Self-Insight Roll)', isCombat: true },
+            { Action: 'Detect Magic Roll', Page: 118, MainSkill: 'Perception (RE)', BonusSkill: 'Code Insight (RE)', Notes: '', isCombat: false },
+            { Action: 'Detect Poison', Page: 119, MainSkill: 'Perception (RE)', BonusSkill: 'Poisons (KN)', Notes: '', isCombat: false },
+            { Action: 'Disable Device/Repair Device', Page: 119, MainSkill: 'Dexterity (BC)', BonusSkill: 'Mechanical Devices (KN)', Notes: 'See also: Repair Device.', isCombat: false },
+            { Action: 'Divine Chanting', Page: 119, MainSkill: 'Divine Insight (RE)', BonusSkill: 'any Rite (KN)', Notes: '', isCombat: false },
+            { Action: 'Emotion Control', Page: 120, MainSkill: 'Perform (SO)', BonusSkill: 'Will (RE)', Notes: '', isCombat: false },
+            { Action: 'Empathy Roll', Page: 120, MainSkill: 'Empathy (SO)', BonusSkill: 'Comprehend (RE)', Notes: '', isCombat: false },
+            { Action: 'Endurance Roll', Page: 120, MainSkill: 'Endurance (PF)', BonusSkill: 'Will (RE)', Notes: '', isCombat: false },
+            { Action: 'Escape Artist', Page: 120, MainSkill: 'Flexibility (PF)', BonusSkill: 'Dexterity (BC)', Notes: '', isCombat: false },
+            { Action: 'Fall Roll/Falling', Page: 120, MainSkill: 'Reaction (RE)', BonusSkill: 'Flexibility (PF)', Notes: '', isCombat: false },
+            { Action: 'Fascinate', Page: 121, MainSkill: 'Talk (SO)', BonusSkill: 'Relevant Knowledge (KN) Skill', Notes: 'vs. Idea (RE) + the same Knowledge (KN) Skill.', isCombat: false },
+            { Action: 'Fire Building', Page: 122, MainSkill: 'Crafting (BC)', BonusSkill: 'Any Wood, Item (KN)', Notes: '', isCombat: false },
+            { Action: 'First Aid', Page: 122, MainSkill: 'Medical (KN)', BonusSkill: 'Anatomy (KN)', Notes: 'See also: Heal.', isCombat: false },
+            { Action: 'First Aid, Poison', Page: 122, MainSkill: 'Medical (KN)', BonusSkill: 'Poisons (KN)', Notes: '', isCombat: false },
+            { Action: 'Forage (Nature)', Page: 122, MainSkill: 'Nature (KN)', BonusSkill: 'Perception (RE)', Notes: 'Forage variant.', isCombat: false },
+            { Action: 'Forage (Food)', Page: 122, MainSkill: 'Food (KN)', BonusSkill: 'Perception (RE)', Notes: 'Forage variant.', isCombat: false },
+            { Action: 'Health Roll (Constitution)', Page: 123, MainSkill: 'Constitution (PF)', BonusSkill: 'Will (RE)', Notes: 'Health Roll variant.', isCombat: false },
+            { Action: 'Health Roll (Toughness)', Page: 123, MainSkill: 'Toughness (ST)', BonusSkill: 'Will (RE)', Notes: 'Health Roll variant.', isCombat: false },
+            { Action: 'Hypnotism Roll', Page: 123, MainSkill: 'Hypnosis (RE special)', BonusSkill: 'Comprehend (RE)', Notes: 'vs. Willpower Roll.', isCombat: false },
+            { Action: 'Information Gathering, Analytic', Page: 123, MainSkill: 'Idea (RE)', BonusSkill: 'Code Insight (RE)', Notes: '', isCombat: false },
+            { Action: 'Information Gathering, Public', Page: 123, MainSkill: 'Idea (RE)', BonusSkill: 'Public (KN)', Notes: '', isCombat: false },
+            { Action: 'Information Gathering, Law', Page: 124, MainSkill: 'Idea (RE)', BonusSkill: 'Law (KN)', Notes: '', isCombat: false },
+            { Action: 'Interpreter Roll', Page: 125, MainSkill: 'Talk (SO)', BonusSkill: 'Interpreter (KN special)', Notes: '', isCombat: false },
+            { Action: 'Interrogation', Page: 125, MainSkill: 'Talk (SO)', BonusSkill: 'Perception (RE)', Notes: 'vs. Willpower.', isCombat: false },
+            { Action: 'Intimidation', Page: 125, MainSkill: 'Convince (SO)', BonusSkill: 'Brawn (ST)', Notes: 'vs. Willpower (reduce by Daunt Roll).', isCombat: true },
+            { Action: 'Intuition Roll', Page: 126, MainSkill: 'Intuition (RE)', BonusSkill: 'Introspection (RE)', Notes: '', isCombat: false },
+            { Action: 'Jump', Page: 126, MainSkill: 'Mobility (BC)', BonusSkill: 'Flexibility (PF)', Notes: '', isCombat: false },
+            { Action: 'Law Roll', Page: 126, MainSkill: 'Convince (SO)', BonusSkill: 'Law (KN)', Notes: '', isCombat: false },
+            { Action: 'Leadership Roll', Page: 126, MainSkill: 'Leadership (SO)', BonusSkill: 'Talk (SO)', Notes: '', isCombat: false },
+            { Action: 'Lock Picking', Page: 127, MainSkill: 'Dexterity (BC)', BonusSkill: 'Mechanical Devices (KN)', Notes: '', isCombat: false },
+            { Action: 'Loyalty Roll', Page: 127, MainSkill: 'Enhanced Leadership (SO special)', BonusSkill: 'Motivate (SO special)', Notes: '', isCombat: false },
+            { Action: 'Luck Roll', Page: 127, MainSkill: '', BonusSkill: '', Notes: 'Roll 1d10. See rulebook for details.', isCombat: false },
+            { Action: 'Magic Spell Casting', Page: 128, MainSkill: 'Magic Insight (RE)', BonusSkill: 'any Magic (KN) skill', Notes: 'Additional details on page 251.', isCombat: false },
+            { Action: 'Meditation Roll', Page: 128, MainSkill: 'Serenity (RE)', BonusSkill: 'Calmness (PF)', Notes: '', isCombat: false },
+            { Action: 'Morale Boost', Page: 128, MainSkill: 'Motivate (SO special)', BonusSkill: 'Motive Insight (RE)', Notes: '', isCombat: false },
+            { Action: 'Motivate/Demotivate', Page: 129, MainSkill: 'Motivate (SO special)', BonusSkill: 'Motive Insight (RE)', Notes: 'vs. Self-Insight Roll.', isCombat: false },
+            { Action: 'Navigation', Page: 129, MainSkill: 'Idea (RE)', BonusSkill: 'Nature (KN)', Notes: '', isCombat: false },
+            { Action: 'Negotiation', Page: 129, MainSkill: 'Convince (SO)', BonusSkill: 'Idea (RE)', Notes: 'See also: Bargain, Haggle.', isCombat: false },
+            { Action: 'Observation', Page: 130, MainSkill: 'Creature Insight (RE)', BonusSkill: 'Perception (RE)', Notes: '', isCombat: false },
+            { Action: 'Patience Roll', Page: 130, MainSkill: 'Patience (SO)', BonusSkill: 'Will (RE)', Notes: '(Anger Management)', isCombat: false },
+            { Action: 'Perception Roll, Active', Page: 130, MainSkill: 'Perception (RE)', BonusSkill: 'Sense (PF)', Notes: 'See also: Search Roll.', isCombat: false },
+            { Action: 'Perception Roll, Passive', Page: 130, MainSkill: 'Sense (PF)', BonusSkill: 'Perception (RE)', Notes: 'See also: Spot Hidden/Secret.', isCombat: false },
+            { Action: 'Perform, Instrumental', Page: 131, MainSkill: 'Perform (SO)', BonusSkill: 'any Music Instrument (KN) skill', Notes: 'See also: Play Music Instrument.', isCombat: false },
+            { Action: 'Perform, Singing', Page: 132, MainSkill: 'Perform (SO)', BonusSkill: 'Singing (KN)', Notes: 'See also: Singing.', isCombat: false },
+            { Action: 'Persuasion', Page: 132, MainSkill: 'Convince (SO)', BonusSkill: 'Motive Insight (RE)', Notes: 'A primary form of Convince.', isCombat: false },
+            { Action: 'Pick Pockets', Page: 133, MainSkill: 'Dexterity (BC)', BonusSkill: 'Reaction (RE)', Notes: '(stealing in general). vs. Passive Perception Roll', isCombat: false },
+            { Action: 'Precision Roll', Page: 133, MainSkill: 'Precision (BC)', BonusSkill: 'Dexterity (BC)', Notes: '', isCombat: false },
+            { Action: 'Psionic Powers', Page: 297, MainSkill: '', BonusSkill: '', Notes: 'See rulebook page 297 for details.', isCombat: false },
+            { Action: 'Psychology', Page: 133, MainSkill: 'Idea (RE)', BonusSkill: 'Motive Insight (KN)', Notes: '', isCombat: false },
+            { Action: 'Resist Cold', Page: 135, MainSkill: 'Toughness (ST)', BonusSkill: 'Constitution (PF)', Notes: '', isCombat: false },
+            { Action: 'Resist Diseases', Page: 135, MainSkill: 'Constitution (PF)', BonusSkill: 'Endurance (PF)', Notes: '', isCombat: false },
+            { Action: 'Resist Fire', Page: 135, MainSkill: 'Toughness (ST)', BonusSkill: 'Constitution (PF)', Notes: '', isCombat: false },
+            { Action: 'Resist Magic (Constitution)', Page: 135, MainSkill: 'Constitution (PF)', BonusSkill: 'Reaction (RE)', Notes: 'Resist Magic variant.', isCombat: true },
+            { Action: 'Resist Magic (Reaction)', Page: 135, MainSkill: 'Reaction (RE)', BonusSkill: 'Constitution (PF)', Notes: 'Resist Magic variant.', isCombat: true },
+            { Action: 'Resist Nausea', Page: 135, MainSkill: 'Constitution (PF)', BonusSkill: 'Will (RE)', Notes: '', isCombat: false },
+            { Action: 'Resist Pain', Page: 135, MainSkill: 'Constitution (PF)', BonusSkill: 'Will (RE)', Notes: '', isCombat: false },
+            { Action: 'Resist Poison', Page: 135, MainSkill: 'Constitution (PF)', BonusSkill: 'Endurance (PF)', Notes: '', isCombat: false },
+            { Action: 'Ritual Magic Roll', Page: 252, MainSkill: '', BonusSkill: '', Notes: 'See rulebook page 252 for details.', isCombat: false },
+            { Action: 'Rope Use (Crafting)', Page: 137, MainSkill: '', BonusSkill: '', Notes: 'Use any Item Crafting Action, see page 112.', isCombat: false },
+            { Action: 'Rope Use (Dexterity/Brawn)', Page: 137, MainSkill: 'Dexterity (BC)', BonusSkill: 'Brawn (ST)', Notes: 'with no Action Improvements.', isCombat: false },
+            { Action: 'Rope Use (Dexterity/Flexibility)', Page: 137, MainSkill: 'Dexterity (BC)', BonusSkill: 'Flexibility (PF)', Notes: 'with no Action Improvements.', isCombat: false },
+            { Action: 'Rowing', Page: 137, MainSkill: 'Brawn (ST)', BonusSkill: 'Power (PF)', Notes: '', isCombat: false },
+            { Action: 'Self-Insight Roll', Page: 137, MainSkill: 'Introspection (BC)', BonusSkill: 'Comprehend (RE)', Notes: 'See also: Introspection Roll.', isCombat: false },
+            { Action: 'Seduce', Page: 138, MainSkill: 'Talk (SO)', BonusSkill: 'Appearance (PF)', Notes: '', isCombat: false },
+            { Action: 'Sense Intention (creature)', Page: 138, MainSkill: 'Creature Insight (RE)', BonusSkill: 'Comprehend (RE)', Notes: 'See also: Handle Animals.', isCombat: false },
+            { Action: 'Sense Motive', Page: 138, MainSkill: 'Motive Insight (RE)', BonusSkill: 'Idea (RE)', Notes: 'vs. Bluff.', isCombat: false },
+            { Action: 'Sleight of Hand Roll', Page: 139, MainSkill: 'Sleight of Hand (BC special)', BonusSkill: 'Haste (PF)', Notes: '', isCombat: false },
+            { Action: 'Sneak Roll, Hide', Page: 139, MainSkill: 'Agility (BC)', BonusSkill: 'Mobility (BC)', Notes: 'vs. Perception Roll (active or passive). See also: Hide.', isCombat: false },
+            { Action: 'Sneak Roll, Exposed Hiding', Page: 139, MainSkill: 'Agility (BC)', BonusSkill: 'Flexibility (PF)', Notes: 'vs. Perception Roll (Active).', isCombat: false },
+            { Action: 'Sneak Roll, Move Silent', Page: 139, MainSkill: 'Agility (BC)', BonusSkill: 'Mobility (BC)', Notes: 'vs. Perception Roll (active or passive). See also: Move Silent.', isCombat: false },
+            { Action: 'Sneak Roll, Move Silent & Hidden', Page: 140, MainSkill: 'Agility (BC)', BonusSkill: 'Mobility (BC)', Notes: 'vs. Perception Roll (active or passive).', isCombat: false },
+            { Action: 'Strength Roll', Page: 141, MainSkill: 'Brawn (ST)', BonusSkill: 'Power (ST)', Notes: 'See also: Lifting.', isCombat: false },
+            { Action: 'Study Roll (General)', Page: 142, MainSkill: 'Study (RE special)', BonusSkill: 'relevant knowledge (KN) skill', Notes: '', isCombat: false },
+            { Action: 'Study Roll (Weapons and Armor)', Page: 142, MainSkill: 'Study (RE special)', BonusSkill: 'relevant knowledge (KN) skill', Notes: '', isCombat: false },
+            { Action: 'Study Roll (Alchemy)', Page: 142, MainSkill: 'Study (RE special)', BonusSkill: 'Alchemy (KN)', Notes: '', isCombat: false },
+            { Action: 'Study Roll (People)', Page: 142, MainSkill: 'Study (RE special)', BonusSkill: 'Motive Insight (RE)', Notes: '', isCombat: false },
+            { Action: 'Study Roll (Sample)', Page: 142, MainSkill: 'Study (RE special)', BonusSkill: 'Nature (KN)', Notes: '', isCombat: false },
+            { Action: 'Surgery Roll', Page: 143, MainSkill: 'Surgery (KN special)', BonusSkill: 'Idea (RE)', Notes: '', isCombat: false },
+            { Action: 'Survival', Page: 143, MainSkill: 'Idea (RE)', BonusSkill: 'Nature (KN)', Notes: '', isCombat: false },
+            { Action: 'Swim Roll', Page: 143, MainSkill: 'Swimming (BC)', BonusSkill: 'Flexibility (PF)', Notes: '', isCombat: false },
+            { Action: 'Terrifying Gaze', Page: 143, MainSkill: 'Terrifying Look (ST special)', BonusSkill: 'Perform (SO)', Notes: '', isCombat: true },
+            { Action: 'Throw Roll', Page: 143, MainSkill: 'Dexterity (BC)', BonusSkill: 'Power (PF)', Notes: '', isCombat: true },
+            { Action: 'Torture', Page: 144, MainSkill: 'Convince (SO)', BonusSkill: 'Will (RE)', Notes: 'vs. Resist Pain.', isCombat: true },
+            { Action: 'Tracking', Page: 144, MainSkill: 'Perception (RE)', BonusSkill: 'Idea (RE)', Notes: '', isCombat: false },
+            { Action: 'Understand (General)', Page: 144, MainSkill: 'Idea (RE)', BonusSkill: 'Comprehend (RE)', Notes: 'Primary roll for Understand. Can also use Law or Public Knowledge. See also: Scrutiny.', isCombat: false },
+            { Action: 'Understand (Objects)', Page: 145, MainSkill: 'Idea (RE)', BonusSkill: 'Item Insight (RE)', Notes: 'Primary roll for Understand (Objects). Can also use a relevant Knowledge skill.', isCombat: false },
+            { Action: 'Understand (Text)', Page: 145, MainSkill: 'Idea (RE)', BonusSkill: 'Languages (KN)', Notes: '', isCombat: false },
+            { Action: 'Understand (Creature)', Page: 145, MainSkill: 'Idea (RE)', BonusSkill: 'Creature Insight (RE)', Notes: '', isCombat: false },
+            { Action: 'Understand (Riddles)', Page: 145, MainSkill: 'Idea (RE)', BonusSkill: 'Code Insight (RE)', Notes: '', isCombat: false },
+            { Action: 'Willpower Roll', Page: 145, MainSkill: 'Will (RE)', BonusSkill: 'Introspection (RE)', Notes: '', isCombat: false },
+            { Action: 'Armor Use', Page: 101, MainSkill: 'Mobility (BC)', BonusSkill: 'Flexibility (PF)', Notes: '', isCombat: true },
+            { Action: 'Arrow Catching', Page: 101, MainSkill: '', BonusSkill: '', Notes: 'Requires Sleight of Hand Roll. REQ: 2x Success. Complexity Level = attacker’s successes.', isCombat: true },
+            { Action: 'Attack, Standard Melee', Page: 102, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'vs. Defense Roll, Dodge Roll, or Block', isCombat: true },
+            { Action: 'Attack, Standard Unarmed', Page: 102, MainSkill: 'Unarmed (Small) Melee (BC)', BonusSkill: 'Martial Arts (KN)', Notes: 'vs. Defense Roll, Dodge Roll, or Block', isCombat: true },
+            { Action: 'Attack, Acrobatic (Acrobatics)', Page: 102, MainSkill: 'Agility (BC)', BonusSkill: 'Balance (BC)', Notes: 'REQ. Full Attack. Prerequisite roll for the melee attack variant.', isCombat: true },
+            { Action: 'Attack, Acrobatic (Melee)', Page: 102, MainSkill: '', BonusSkill: '', Notes: 'Uses (Small/Medium) Melee (BC) + successes from the Acrobatics roll. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
+            { Action: 'Attack, Blind/Blindfolded', Page: 180, MainSkill: '', BonusSkill: '', Notes: 'See rulebook page 180 for details.', isCombat: true },
+            { Action: 'Attack, Bull Rush', Page: 103, MainSkill: 'Unarmed Melee (BC)', BonusSkill: 'Haste (PF)', Notes: 'REQ. Full attack. vs. Defense Roll or Dodge Roll', isCombat: true },
+            { Action: 'Attack, Charge', Page: 103, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack, Start 5 tiles from target. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
+            { Action: 'Attack, Off-Hand', Page: 103, MainSkill: '', BonusSkill: '', Notes: 'Uses a standard attack roll. Success Range is limited by your Ambidextrous Skill. vs. Defense Roll, Dodge Roll, or Block', isCombat: true },
+            { Action: 'Attack, Disarm', Page: 104, MainSkill: '', BonusSkill: '', Notes: 'Uses a standard attack roll. REQ. Full Standard Attack Roll, Called Shot, targeting opponents’ weapon. vs. Defense Roll', isCombat: true },
+            { Action: 'Attack, Grapple', Page: 104, MainSkill: '(Small &) Unarmed Melee (BC)', BonusSkill: 'Dexterity (BC)', Notes: 'REQ. Full Attack. vs. Grapple Attack, Defense Roll, or Dodge Roll. See also: Grapple.', isCombat: true },
+            { Action: 'Attack, Mounted Archery (Riding)', Page: 105, MainSkill: 'Balance (BC)', BonusSkill: 'Mobility (BC)', Notes: 'REQ. Quick or Aimed. Prerequisite for the ranged attack variant.', isCombat: true },
+            { Action: 'Attack, Mounted Archery (Ranged)', Page: 105, MainSkill: 'Archery (BC)', BonusSkill: 'Simple Ranged Weapon Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Ranged Defense Roll.', isCombat: true },
+            { Action: 'Attack, Mounted Melee (Riding)', Page: 105, MainSkill: 'Balance (BC)', BonusSkill: 'Mobility (BC)', Notes: 'REQ. Full Attack. Prerequisite for the melee attack variant.', isCombat: true },
+            { Action: 'Attack, Mounted Melee (Melee)', Page: 105, MainSkill: '', BonusSkill: '', Notes: 'Uses Medium or Large Melee (BC) + successes from the Riding roll. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
+            { Action: 'Attack, Ranged Bow', Page: 105, MainSkill: 'Archery (BC)', BonusSkill: 'Simple Ranged Weapon Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
+            { Action: 'Attack, Ranged Crossbow', Page: 105, MainSkill: 'Crossbows (BC)', BonusSkill: 'Mechanical Weapons Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
+            { Action: 'Attack, Ranged Slings', Page: 106, MainSkill: 'Slings (BC)', BonusSkill: 'Simple Ranged Weapons Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
+            { Action: 'Attack, Blowguns', Page: 106, MainSkill: 'Blowguns (BC)', BonusSkill: 'Blowguns Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
+            { Action: 'Attack, Sneak', Page: 106, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll or Dodge Roll.', isCombat: true },
+            { Action: 'Attack, Ranged Sneak', Page: 106, MainSkill: '', BonusSkill: '', Notes: 'Skill Combination same as Ranged Attack. REQ. Aimed. vs. Defense Roll, Ranged.', isCombat: true },
+            { Action: 'Attack, Taunt', Page: 106, MainSkill: 'Any Melee (BC)', BonusSkill: 'Talk (SO)', Notes: 'vs. Willpower Roll.', isCombat: true },
+            { Action: 'Attack, Thrown Weapon', Page: 107, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
+            { Action: 'Attack, Trip (Unarmed)', Page: 107, MainSkill: '(Small &) Unarmed Melee (BC)', BonusSkill: 'Martial Arts (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll or Dodge Roll. See Armed variant.', isCombat: true },
+            { Action: 'Attack, Trip (Armed)', Page: 107, MainSkill: 'Med/Lrg Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll or Dodge Roll. See Unarmed variant.', isCombat: true },
+            { Action: 'Attack, Tumble', Page: 107, MainSkill: 'Small & Unarmed Melee (BC)', BonusSkill: 'Quick Dodge (BC special)', Notes: 'REQ. Full Attack.', isCombat: true },
+            { Action: 'Block, Arm Block', Page: 109, MainSkill: 'Haste (PF)', BonusSkill: 'Reaction (RE)', Notes: 'alternative to Standard Defense Roll.', isCombat: true },
+            { Action: 'Block, Unarmed Block', Page: 109, MainSkill: 'Unarmed Master (BC special)', BonusSkill: 'Ambidextrous (BC)', Notes: 'alternative to Standard Defense Roll.', isCombat: true },
+            { Action: 'Block, Shield Block', Page: 109, MainSkill: 'Haste (PF)', BonusSkill: 'Reaction (RE)', Notes: 'alternative to Standard Defense Roll.', isCombat: true },
+            { Action: 'Defense Roll, Melee', Page: 117, MainSkill: '', BonusSkill: '', Notes: 'Uses a standard attack roll. Also used for Counterattack Rolls.', isCombat: true },
+            { Action: 'Defense Roll, Ranged (Reaction)', Page: 117, MainSkill: 'Reaction (RE)', BonusSkill: 'Perception (RE)', Notes: 'Dodge Projectiles. Prerequisite for the dodge variant.', isCombat: true },
+            { Action: 'Defense Roll, Ranged (Dodge)', Page: 117, MainSkill: 'Agility (BC)', BonusSkill: 'Reaction (RE)', Notes: 'Dodge Projectiles. See reaction variant.', isCombat: true },
+            { Action: 'Defense Roll, Ranged (Shield Reaction)', Page: 118, MainSkill: 'Reaction (RE)', BonusSkill: 'Perception (RE)', Notes: 'Shield block projectiles. Prerequisite for the shield block variant.', isCombat: true },
+            { Action: 'Defense Roll, Ranged (Shield Block)', Page: 118, MainSkill: 'Haste (PF)', BonusSkill: 'Reaction (RE)', Notes: 'Shield block projectiles. See shield reaction variant.', isCombat: true },
+            { Action: 'Dodge Roll', Page: 119, MainSkill: 'Agility (BC)', BonusSkill: 'Reaction (RE)', Notes: '', isCombat: true },
+            { Action: 'Dodge Roll, Quick', Page: 119, MainSkill: 'Quick Dodge (BC special)', BonusSkill: 'Reaction (RE)', Notes: '', isCombat: true },
+            { Action: 'Initiative Adjust Roll', Page: 124, MainSkill: 'Endurance (PF)', BonusSkill: 'Will (RE)', Notes: '', isCombat: true },
+            { Action: 'Initiative Roll', Page: 124, MainSkill: 'Any Combat Skill (BC)', BonusSkill: 'Reaction (RE)', Notes: '', isCombat: true }
         ];
 
         const specializedSkills = new Set([
@@ -293,12 +303,12 @@
 
         const synonymDictionary = {
             // --- Meta Categories ---
-            'combat': ['attack', 'strike', 'fight', 'block', 'defend', 'dodge', 'parry', 'grapple', 'disarm', 'charge', 'rush', 'initiative', 'armor', 'arrow catching', 'counterattack'],
+            'combat': ['attack', 'strike', 'fight', 'block', 'defend', 'dodge', 'parry', 'grapple', 'disarm', 'charge', 'rush', 'initiative', 'armor', 'arrow catching', 'counterattack', 'daunt', 'intimidation', 'gaze', 'throw', 'torture'],
 
             // --- Social & Influence ---
             'talk': ['speak', 'convince', 'persuade', 'negotiate', 'bluff', 'lie', 'interrogate', 'taunt', 'cant', 'fascinate', 'seduce', 'intimidate', 'daunt', 'leadership', 'motivate', 'perform'],
             'persuade': ['convince', 'negotiate', 'bluff', 'fascinate', 'seduce', 'influence', 'talk'],
-            'convince': ['persuade', 'negotiate', 'bluff', 'fascinate', 'seduce', 'influence', 'talk'],
+            'convince': ['persuade', 'negotiate', 'bluff', 'fascinate', 'seduce', 'influence', 'talk', 'convince'],
             'negotiate': ['bargain', 'haggle', 'convince', 'persuade', 'talk'],
             'bluff': ['lie', 'deceive', 'mislead', 'trick', 'talk'],
             'lie': ['bluff', 'deceive', 'mislead', 'trick'],
@@ -323,7 +333,7 @@
             'strike': ['attack', 'fight', 'hit'],
             'fight': ['attack', 'strike', 'combat', 'brawl'],
             'block': ['defend', 'parry', 'resist', 'withstand', 'dodge', 'arrow catching'],
-            'defend': ['block', 'parry', 'resist', 'withstand', 'dodge', 'guard'],
+            'defend': ['block', 'parry', 'resist', 'withstand', 'dodge', 'guard', 'defense roll'],
             'dodge': ['evade', 'avoid', 'block', 'defend', 'tumble'],
             'throw': ['hurl', 'toss', 'fling'],
             'jump': ['leap', 'bound', 'hop'],
@@ -331,21 +341,21 @@
             'swim': ['dive', 'wade'],
 
             // --- Perception & Investigation ---
-            'search': ['find', 'spot', 'perceive', 'observe', 'track', 'detect', 'look', 'investigate', 'examine', 'scrutinize', 'appraise'],
+            'search': ['find', 'spot', 'perceive', 'observe', 'track', 'detect', 'look', 'investigate', 'examine', 'scrutinize', 'appraise', 'search roll'],
             'find': ['search', 'spot', 'perceive', 'observe', 'track', 'detect', 'locate'],
             'observe': ['watch', 'see', 'spot', 'perceive', 'notice', 'search', 'sense'],
             'detect': ['find', 'notice', 'sense', 'perceive', 'search'],
             'track': ['follow', 'trail', 'hunt', 'pursue', 'survival'],
             'appraise': ['evaluate', 'value', 'assess', 'judge', 'price', 'examine'],
             'study': ['learn', 'research', 'examine', 'analyze', 'investigate', 'recall', 'understand'],
-            'understand': ['comprehend', 'decipher', 'interpret', 'grasp', 'fathom', 'riddle', 'code breaking'],
+            'understand': ['comprehend', 'decipher', 'interpret', 'grasp', 'fathom', 'riddle', 'code breaking', 'scrutiny'],
             'recall': ['remember', 'recollect', 'know'],
-            'sense': ['perceive', 'feel', 'detect', 'intuition', 'empathy', 'sense motive'],
+            'sense': ['perceive', 'feel', 'detect', 'intuition', 'empathy', 'sense motive', 'handle animals'],
 
             // --- Crafting & Creation ---
-            'craft': ['make', 'build', 'create', 'repair', 'butcher', 'cook', 'forge', 'construct', 'alchemy', 'poison'],
+            'craft': ['make', 'build', 'create', 'repair', 'butcher', 'cook', 'forge', 'construct', 'alchemy', 'poison', 'scroll crafting'],
             'make': ['craft', 'build', 'create', 'repair', 'construct'],
-            'repair': ['fix', 'mend', 'restore', 'disable device'],
+            'repair': ['fix', 'mend', 'restore', 'disable device', 'repair device', 'repair items', 'repair weapons'],
             'fix': ['repair', 'mend', 'restore'],
             'cook': ['butcher', 'prepare food'],
 
@@ -461,29 +471,35 @@
 
             const filteredActions = actionsData.filter(action => {
                 if (!searchTerm) return true;
-                const actionText = (action.Action + ' ' + action['Main Skill'] + ' ' + action['Bonus Skill']).toLowerCase();
+
+                if (searchTerm === 'combat' && action.isCombat) {
+                    return true;
+                }
+
+                const actionText = (action.Action + ' ' + action.Notes).toLowerCase();
                 return searchTerms.some(term => actionText.includes(term));
             });
 
             const actionsWithMetrics = filteredActions.map(action => {
-                const mainSkill = action['Main Skill'];
-                const bonusSkill = action['Bonus Skill'];
+                // Return a default structure for actions without skills
+                if (!action.MainSkill) {
+                    return { ...action, metrics: { isRollable: false } };
+                }
+
+                const mainSkill = action.MainSkill;
+                const bonusSkill = action.BonusSkill;
                 const mainSkillName = mainSkill.split(' (')[0];
                 let bonusSkillName = bonusSkill.split(' (')[0];
 
-                // NEW: Check for the "any relevant" case
                 const isBonusSkillVariable = bonusSkill.toLowerCase().includes('any');
                 if (isBonusSkillVariable) {
-                    bonusSkillName = 'Relevant Knowledge'; // Set a clean name for display
+                    bonusSkillName = 'Relevant Knowledge';
                 }
 
                 const mainSkillAttrAbbr = getAttributeFromSkill(mainSkill);
                 const fullMainSkillAttr = getFullAttributeName(mainSkillAttrAbbr);
                 const primarySkillRank = getCharValue(mainSkillName);
-
-                // MODIFIED: Use 0 if the bonus skill is variable, otherwise get the value
                 const secondarySkillRank = isBonusSkillVariable ? 0 : getCharValue(bonusSkillName);
-
                 const attributeScore = getCharValue(fullMainSkillAttr);
                 const dicePool = attributeScore + secondarySkillRank;
 
@@ -499,16 +515,20 @@
 
                 return {
                     ...action,
-                    metrics: { dicePool, avgSuccesses, mainSkillName, bonusSkillName, fullMainSkillAttr, primarySkillRank, secondarySkillRank, attributeScore, successThreshold, isBonusSkillVariable }
+                    metrics: { isRollable: true, dicePool, avgSuccesses, mainSkillName, bonusSkillName, fullMainSkillAttr, primarySkillRank, secondarySkillRank, attributeScore, successThreshold, isBonusSkillVariable }
                 };
             });
 
             actionsWithMetrics.sort((a, b) => {
-                switch (sortBy) {
-                    case 'alpha': return a.Action.localeCompare(b.Action);
-                    case 'page': return (a.Page || 999) - (b.Page || 999);
-                    default: return b.metrics.avgSuccesses - a.metrics.avgSuccesses;
+                if (sortBy === 'best') {
+                    // Handle non-rollable actions by pushing them to the bottom
+                    const aValue = a.metrics.isRollable ? a.metrics.avgSuccesses : -1;
+                    const bValue = b.metrics.isRollable ? b.metrics.avgSuccesses : -1;
+                    return bValue - aValue;
                 }
+                if (sortBy === 'alpha') return a.Action.localeCompare(b.Action);
+                if (sortBy === 'page') return (a.Page || 999) - (b.Page || 999);
+                return 0;
             });
 
             if (actionsWithMetrics.length === 0) {
@@ -530,15 +550,43 @@
          * Generates the HTML for a single action row.
          */
         function generateActionRowHTML(action, index) {
-            const { metrics } = action;
-            const isExpanded = uiState.expandedAction === action.Action;
             const isSelected = uiState.selectedActionIndex === index;
+            const isExpanded = uiState.expandedAction === action.Action;
 
-            const simplifiedMain = metrics.mainSkillName.replace(/\(.*\)/, '').trim();
-            const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
+            let headerRightHTML = '';
+            let detailsHTML = `<p><strong class="text-gray-300">Notes:</strong> ${action.Notes || 'None'}</p>`;
+            let skillLineHTML = '';
 
-            // NEW: Add a star if the bonus skill is variable
-            const bonusSkillDisplay = `${simplifiedBonus}${metrics.isBonusSkillVariable ? ' *' : ''}`;
+            if (action.metrics.isRollable) {
+                const { metrics } = action;
+                const simplifiedMain = metrics.mainSkillName.replace(/\(.*\)/, '').trim();
+                const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
+                const bonusSkillDisplay = `${simplifiedBonus}${metrics.isBonusSkillVariable ? ' *' : ''}`;
+
+                headerRightHTML = `
+                    <p class="font-semibold text-white">Dice Pool: ${metrics.dicePool}d10</p>
+                    <p class="text-sm text-gray-400">
+                        Success: ${metrics.successThreshold}+ (Avg: ${metrics.avgSuccesses.toFixed(2)})
+                    </p>`;
+
+                skillLineHTML = `
+                    <div class="tooltip">
+                        <p class="text-sm text-gray-400">${simplifiedMain} + ${bonusSkillDisplay}</p>
+                        <span class="tooltiptext">${action.MainSkill} + ${action.BonusSkill}${metrics.isBonusSkillVariable ? ' (Using Rank 0)' : ''}</span>
+                    </div>`;
+
+                detailsHTML += `
+                    <p class="mt-2"><strong class="text-gray-300">Page:</strong> ${action.Page || 'N/A'}</p>
+                    <p class="mt-2 text-blue-300"><strong class="text-gray-300">Calculation:</strong>
+                        ${metrics.attributeScore}d10 (from ${metrics.fullMainSkillAttr}) +
+                        ${metrics.secondarySkillRank}d10 (from ${metrics.bonusSkillName})
+                    </p>
+                    <p class="text-blue-300"><strong class="text-gray-300">Success on:</strong>
+                        ${metrics.successThreshold}+ (from ${metrics.mainSkillName} rank ${metrics.primarySkillRank})
+                    </p>`;
+            } else {
+                 headerRightHTML = `<p class="text-sm text-gray-400 font-style: italic">Non-Rollable</p>`;
+            }
 
             return `
                 <div class="action-row bg-gray-800 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-700/80 ${isExpanded ? 'expanded' : ''} ${isSelected ? 'selected' : ''}" data-action-name="${action.Action}" id="action-row-${index}">
@@ -546,28 +594,14 @@
                         <div class="grid grid-cols-2 gap-x-4">
                             <div>
                                 <h3 class="font-bold text-lg text-white">${action.Action}</h3>
-                                <div class="tooltip">
-                                    <p class="text-sm text-gray-400">${simplifiedMain} + ${bonusSkillDisplay}</p>
-                                    <span class="tooltiptext">${action['Main Skill']} + ${action['Bonus Skill']}${metrics.isBonusSkillVariable ? ' (Using Rank 0)' : ''}</span>
-                                </div>
+                                ${skillLineHTML}
                             </div>
                             <div class="text-right">
-                                <p class="font-semibold text-white">Dice Pool: ${metrics.dicePool}d10</p>
-                                <p class="text-sm text-gray-400">
-                                    Success: ${metrics.successThreshold}+ (Avg: ${metrics.avgSuccesses.toFixed(2)})
-                                </p>
+                                ${headerRightHTML}
                             </div>
                         </div>
                         <div class="action-details mt-4 pt-4 border-t border-gray-700 text-sm">
-                            <p><strong class="text-gray-300">Notes:</strong> ${action.Notes || 'None'}</p>
-                            <p><strong class="text-gray-300">Page:</strong> ${action.Page || 'N/A'}</p>
-                            <p class="mt-2 text-blue-300"><strong class="text-gray-300">Calculation:</strong>
-                                ${metrics.attributeScore}d10 (from ${metrics.fullMainSkillAttr}) +
-                                ${metrics.secondarySkillRank}d10 (from ${metrics.bonusSkillName})
-                            </p>
-                             <p class="text-blue-300"><strong class="text-gray-300">Success on:</strong>
-                                ${metrics.successThreshold}+ (from ${metrics.mainSkillName} rank ${metrics.primarySkillRank})
-                            </p>
+                            ${detailsHTML}
                         </div>
                     </div>
                 </div>
