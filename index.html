@@ -465,7 +465,7 @@
 
                     html += `
                         <div class="grid grid-cols-5 gap-2 items-center mb-1">
-                            <label class="col-span-3 text-sm ${isSpecial ? 'text-blue-300' : ''}">${skillDisplayName}:</label>
+                            <label class="col-span-3 text-sm skill-label cursor-pointer hover:text-blue-400 ${isSpecial ? 'text-blue-300' : ''}" data-skill-name="${skill}">${skillDisplayName}:</label>
                             <input type="number" min="0" data-type="skill" data-key="${skill}" value="${getCharValue(skill)}" class="col-span-2 bg-gray-800 border border-gray-600 rounded px-2 py-1">
                         </div>
                     `;
@@ -495,7 +495,14 @@
                 }
 
                 const actionText = (action.Action + ' ' + action.Notes).toLowerCase();
-                return searchTerms.some(term => actionText.includes(term));
+                const mainSkillText = (action.MainSkill || '').toLowerCase();
+                const bonusSkillText = (action.BonusSkill || '').toLowerCase();
+
+                return searchTerms.some(term =>
+                    actionText.includes(term) ||
+                    mainSkillText.includes(term) ||
+                    bonusSkillText.includes(term)
+                );
             });
 
             const actionsWithMetrics = filteredActions.map(action => {
@@ -658,6 +665,14 @@
                     uiState.expandedAction = actionName;
                 }
                 // Re-render to reflect the change
+                renderActionList();
+            }
+        }
+
+        function handleSkillClick(e) {
+            if (e.target.classList.contains('skill-label')) {
+                const skillName = e.target.dataset.skillName;
+                searchInputEl.value = skillName;
                 renderActionList();
             }
         }
@@ -881,6 +896,7 @@
 
             // --- Event Listeners ---
             characterSheetEl.addEventListener('input', handleCharacterDataChange);
+            characterSheetEl.addEventListener('click', handleSkillClick);
             actionListEl.addEventListener('click', handleActionListClick);
             searchInputEl.addEventListener('input', renderActionList);
             sortOrderEl.addEventListener('change', renderActionList);
