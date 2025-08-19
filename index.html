@@ -99,7 +99,25 @@
             <aside id="characterPanel" class="lg:col-span-1 bg-gray-800 p-4 rounded-lg h-fit sticky top-4">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-bold">My Character</h2>
-                    <button id="resetCharacterBtn" class="text-sm text-blue-400 hover:text-blue-300 hover:underline">Reset</button>
+                    <div class="relative inline-block text-left">
+                        <div>
+                            <button type="button" id="settingsMenuBtn" class="inline-flex justify-center w-full rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500" aria-haspopup="true" aria-expanded="true">
+                                Settings
+                                <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="settingsMenu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 hidden z-10">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="settingsMenuBtn">
+                                <a href="#" id="importBtn" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">Import from JSON</a>
+                                <a href="#" id="exportBtn" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">Export to JSON</a>
+                                <div class="border-t border-gray-700 my-1"></div>
+                                <a href="#" id="resetCharacterBtn" class="block px-4 py-2 text-sm text-red-400 hover:bg-gray-700" role="menuitem">Reset Character</a>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="file" id="importFile" class="hidden" accept=".json">
                 </div>
                 <div id="characterSheet">
                     <!-- Character sheet will be dynamically generated here -->
@@ -763,6 +781,96 @@
             }
         }
 
+        const settingsMenuBtn = document.getElementById('settingsMenuBtn');
+        const settingsMenu = document.getElementById('settingsMenu');
+        const importBtn = document.getElementById('importBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const importFileEl = document.getElementById('importFile');
+        const resetBtn = document.getElementById('resetCharacterBtn');
+
+        // Toggle settings menu
+        settingsMenuBtn.addEventListener('click', () => {
+            settingsMenu.classList.toggle('hidden');
+        });
+
+        // Hide menu if clicking outside
+        document.addEventListener('click', (event) => {
+            if (!settingsMenuBtn.contains(event.target) && !settingsMenu.contains(event.target)) {
+                settingsMenu.classList.add('hidden');
+            }
+        });
+
+        // Export functionality
+        exportBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const dataStr = localStorage.getItem('insightCharacterData');
+            if (!dataStr) {
+                alert('No character data to export.');
+                return;
+            }
+            const dataBlob = new Blob([dataStr], {type : 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'insight-actions-data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            settingsMenu.classList.add('hidden');
+        });
+
+        // Import functionality
+        importBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            importFileEl.click();
+            settingsMenu.classList.add('hidden');
+        });
+
+        importFileEl.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    // Basic validation
+                    if (typeof importedData === 'object' && importedData !== null) {
+                        if (confirm('This will overwrite your current character data. Are you sure?')) {
+                            localStorage.setItem('insightCharacterData', JSON.stringify(importedData));
+                            characterData = importedData;
+                            renderCharacterSheet();
+                            renderActionList();
+                            alert('Data imported successfully!');
+                        }
+                    } else {
+                        throw new Error('Invalid file format.');
+                    }
+                } catch (error) {
+                    alert('Error importing file: ' + error.message);
+                } finally {
+                    // Reset file input so the same file can be loaded again
+                    importFileEl.value = '';
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // Reset functionality
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to reset all character stats?')) {
+                localStorage.removeItem('insightCharacterData');
+                characterData = {}; // Clear the in-memory data
+                loadCharacterData(); // Reload with defaults
+                renderCharacterSheet();
+                renderActionList();
+            }
+            settingsMenu.classList.add('hidden');
+        });
+
         /**
          * Initializes the application.
          */
@@ -796,17 +904,6 @@
             // Add this new line at the end of the init function
             document.addEventListener('keydown', handleGlobalKeyDown);
         }
-
-        const resetBtn = document.getElementById('resetCharacterBtn');
-        resetBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to reset all character stats?')) {
-                localStorage.removeItem('insightCharacterData');
-                characterData = {}; // Clear the in-memory data
-                loadCharacterData(); // Reload with defaults
-                renderCharacterSheet();
-                renderActionList();
-            }
-        });
 
         // Start the app
         document.addEventListener('DOMContentLoaded', init);
