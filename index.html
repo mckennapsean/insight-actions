@@ -271,12 +271,12 @@
             { Action: 'Attack, Disarm', Page: 104, MainSkill: '', BonusSkill: '', Notes: 'Uses a standard attack roll. REQ. Full Standard Attack Roll, Called Shot, targeting opponents’ weapon. vs. Defense Roll', isCombat: true },
             { Action: 'Attack, Grapple', Page: 104, MainSkill: '(Small &) Unarmed Melee (BC)', BonusSkill: 'Dexterity (BC)', Notes: 'REQ. Full Attack. vs. Grapple Attack, Defense Roll, or Dodge Roll. See also: Grapple.', isCombat: true },
             { Action: 'Attack, Mounted Archery (Riding)', Page: 105, MainSkill: 'Balance (BC)', BonusSkill: 'Mobility (BC)', Notes: 'REQ. Quick or Aimed. Prerequisite for the ranged attack variant.', isCombat: true },
-            { Action: 'Attack, Mounted Archery (Ranged)', Page: 105, MainSkill: 'Archery (BC)', BonusSkill: 'Simple Ranged Weapon Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Ranged Defense Roll.', isCombat: true },
+            { Action: 'Attack, Mounted Archery (Ranged)', Page: 105, MainSkill: 'Archery (BC)', BonusSkill: 'Simple Ranged Weapon (KN)', Notes: 'REQ. Quick or Aimed. vs. Ranged Defense Roll.', isCombat: true },
             { Action: 'Attack, Mounted Melee (Riding)', Page: 105, MainSkill: 'Balance (BC)', BonusSkill: 'Mobility (BC)', Notes: 'REQ. Full Attack. Prerequisite for the melee attack variant.', isCombat: true },
             { Action: 'Attack, Mounted Melee (Melee)', Page: 105, MainSkill: '', BonusSkill: '', Notes: 'Uses Medium or Large Melee (BC) + successes from the Riding roll. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
-            { Action: 'Attack, Ranged Bow', Page: 105, MainSkill: 'Archery (BC)', BonusSkill: 'Simple Ranged Weapon Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
-            { Action: 'Attack, Ranged Crossbow', Page: 105, MainSkill: 'Crossbows (BC)', BonusSkill: 'Mechanical Weapons Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
-            { Action: 'Attack, Ranged Slings', Page: 106, MainSkill: 'Slings (BC)', BonusSkill: 'Simple Ranged Weapons Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
+            { Action: 'Attack, Ranged Bow', Page: 105, MainSkill: 'Archery (BC)', BonusSkill: 'Simple Ranged Weapon (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
+            { Action: 'Attack, Ranged Crossbow', Page: 105, MainSkill: 'Crossbows (BC)', BonusSkill: 'Mechanical Weapons (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
+            { Action: 'Attack, Ranged Slings', Page: 106, MainSkill: 'Slings (BC)', BonusSkill: 'Simple Ranged Weapon (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
             { Action: 'Attack, Blowguns', Page: 106, MainSkill: 'Blowguns (BC)', BonusSkill: 'Blowguns Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
             { Action: 'Attack, Sneak', Page: 106, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll or Dodge Roll.', isCombat: true },
             { Action: 'Attack, Ranged Sneak', Page: 106, MainSkill: '', BonusSkill: '', Notes: 'Skill Combination same as Ranged Attack. REQ. Aimed. vs. Defense Roll, Ranged.', isCombat: true },
@@ -302,15 +302,15 @@
         const specializedSkills = new Set([
             'Camouflage', 'Quick Dodge', 'Hypnosis', 'Interpreter', 'Enhanced Leadership',
             'Motivate', 'Logic Recall', 'Sleight of Hand', 'Study', 'Surgery',
-            'Terrifying Look', 'Unarmed Master', 'Ambidextrous'
+            'Terrifying Look', 'Unarmed Master'
         ]);
 
         const characterSchema = {
-            "Strength (ST)": ["Daunt", "Brawn", "Power", "Toughness", "Terrifying Look"],
+            "Strength (ST)": ["Daunt", "Brawn", "Toughness", "Terrifying Look"],
             "Physical Fitness (PF)": ["Flexibility", "Calmness", "Endurance", "Haste", "Power", "Constitution", "Sense", "Appearance"],
-            "Body Control (BC)": ["Agility", "Balance", "Crafting", "Dexterity", "Mobility", "Precision", "Reaction", "Swimming", "Any Melee", "Unarmed (Small) Melee", "Archery", "Crossbows", "Slings", "Blowguns", "Med/Lrg Melee", "Small & Unarmed Melee", "Introspection", "Any Combat Skill", "Sleight of Hand", "Quick Dodge", "Unarmed Master", "Ambidextrous", "Camouflage"],
-            "Reason (RE)": ["Idea", "Code Insight", "Item Insight", "Creature Insight", "Anatomy", "Perception", "Divine Insight", "Reaction", "Comprehend", "Empathy", "Will", "Hypnosis", "Introspection", "Intuition", "Motive Insight", "Logic Recall", "Recall", "Serenity", "Study"],
-            "Social (SO)": ["Convince", "Perform", "Talk", "Calmness", "Code Insight", "Empathy", "Leadership", "Patience", "Motivate", "Enhanced Leadership"],
+            "Body Control (BC)": ["Agility", "Balance", "Crafting", "Dexterity", "Mobility", "Precision", "Swimming", "Any Melee", "Unarmed (Small) Melee", "Archery", "Crossbows", "Slings", "Blowguns", "Med/Lrg Melee", "Small & Unarmed Melee", "Any Combat Skill", "Sleight of Hand", "Quick Dodge", "Unarmed Master", "Ambidextrous", "Camouflage"],
+            "Reason (RE)": ["Idea", "Code Insight", "Item Insight", "Creature Insight", "Anatomy", "Perception", "Divine Insight", "Reaction", "Comprehend", "Will", "Hypnosis", "Introspection", "Intuition", "Motive Insight", "Logic Recall", "Recall", "Serenity", "Study", "Magic Insight"],
+            "Social (SO)": ["Convince", "Perform", "Talk", "Empathy", "Leadership", "Patience", "Motivate", "Enhanced Leadership"],
             "Knowledge (KN)": ["Item Knowledge", "Anatomy", "Melee Weapons Knowledge", "Food", "Alchemy", "Magic", "Poisons", "Metal Items Knowledge", "Cloth Items Knowledge", "Mechanical Devices", "Rite", "Wood, Item", "Medical", "Nature", "Public", "Law", "Interpreter", "Music Instrument", "Singing", "Motive Insight", "Languages", "Surgery", "Martial Arts", "Simple Ranged Weapon", "Mechanical Weapons", "Blowguns Knowledge"]
         };
 
