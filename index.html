@@ -260,13 +260,13 @@
             { Action: 'Willpower Roll', Page: 145, MainSkill: 'Will (RE)', BonusSkill: 'Introspection (RE)', Notes: '', isCombat: false },
             { Action: 'Armor Use', Page: 101, MainSkill: 'Mobility (BC)', BonusSkill: 'Flexibility (PF)', Notes: '', isCombat: true },
             { Action: 'Arrow Catching', Page: 101, MainSkill: '', BonusSkill: '', Notes: 'Requires Sleight of Hand Roll. REQ: 2x Success. Complexity Level = attacker’s successes.', isCombat: true },
-            { Action: 'Attack, Standard Melee', Page: 102, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'vs. Defense Roll, Dodge Roll, or Block', isCombat: true },
-            { Action: 'Attack, Standard Unarmed', Page: 102, MainSkill: 'Unarmed (Small) Melee (BC)', BonusSkill: 'Martial Arts (KN)', Notes: 'vs. Defense Roll, Dodge Roll, or Block', isCombat: true },
+            { Action: 'Attack, Standard Melee', Page: 102, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', skillVariants: ['Med/Lrg Melee', 'Small & Unarmed Melee'], Notes: 'vs. Defense Roll, Dodge Roll, or Block', isCombat: true },
+            { Action: 'Attack, Standard Unarmed', Page: 102, MainSkill: 'Small & Unarmed Melee (BC)', BonusSkill: 'Martial Arts (KN)', Notes: 'vs. Defense Roll, Dodge Roll, or Block', isCombat: true },
             { Action: 'Attack, Acrobatic (Acrobatics)', Page: 102, MainSkill: 'Agility (BC)', BonusSkill: 'Balance (BC)', Notes: 'REQ. Full Attack. Prerequisite roll for the melee attack variant.', isCombat: true },
             { Action: 'Attack, Acrobatic (Melee)', Page: 102, MainSkill: '', BonusSkill: '', Notes: 'Uses (Small/Medium) Melee (BC) + successes from the Acrobatics roll. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
             { Action: 'Attack, Blind/Blindfolded', Page: 180, MainSkill: '', BonusSkill: '', Notes: 'See rulebook page 180 for details.', isCombat: true },
-            { Action: 'Attack, Bull Rush', Page: 103, MainSkill: 'Unarmed Melee (BC)', BonusSkill: 'Haste (PF)', Notes: 'REQ. Full attack. vs. Defense Roll or Dodge Roll', isCombat: true },
-            { Action: 'Attack, Charge', Page: 103, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack, Start 5 tiles from target. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
+            { Action: 'Attack, Bull Rush', Page: 103, MainSkill: 'Unarmed Melee (BC)', BonusSkill: 'Haste (PF)', skillVariants: ['Small & Unarmed Melee'], Notes: 'REQ. Full attack. vs. Defense Roll or Dodge Roll', isCombat: true },
+            { Action: 'Attack, Charge', Page: 103, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', skillVariants: ['Med/Lrg Melee', 'Small & Unarmed Melee'], Notes: 'REQ. Full Attack, Start 5 tiles from target. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
             { Action: 'Attack, Off-Hand', Page: 103, MainSkill: '', BonusSkill: '', Notes: 'Uses a standard attack roll. Success Range is limited by your Ambidextrous Skill. vs. Defense Roll, Dodge Roll, or Block', isCombat: true },
             { Action: 'Attack, Disarm', Page: 104, MainSkill: '', BonusSkill: '', Notes: 'Uses a standard attack roll. REQ. Full Standard Attack Roll, Called Shot, targeting opponents’ weapon. vs. Defense Roll', isCombat: true },
             { Action: 'Attack, Grapple', Page: 104, MainSkill: '(Small &) Unarmed Melee (BC)', BonusSkill: 'Dexterity (BC)', Notes: 'REQ. Full Attack. vs. Grapple Attack, Defense Roll, or Dodge Roll. See also: Grapple.', isCombat: true },
@@ -278,10 +278,10 @@
             { Action: 'Attack, Ranged Crossbow', Page: 105, MainSkill: 'Crossbows (BC)', BonusSkill: 'Mechanical Weapons (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
             { Action: 'Attack, Ranged Slings', Page: 106, MainSkill: 'Slings (BC)', BonusSkill: 'Simple Ranged Weapon (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
             { Action: 'Attack, Blowguns', Page: 106, MainSkill: 'Blowguns (BC)', BonusSkill: 'Blowguns Knowledge (KN)', Notes: 'REQ. Quick or Aimed. vs. Defense Roll, Ranged.', isCombat: true },
-            { Action: 'Attack, Sneak', Page: 106, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll or Dodge Roll.', isCombat: true },
+            { Action: 'Attack, Sneak', Page: 106, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', skillVariants: ['Med/Lrg Melee', 'Small & Unarmed Melee'], Notes: 'REQ. Full Attack. vs. Defense Roll or Dodge Roll.', isCombat: true },
             { Action: 'Attack, Ranged Sneak', Page: 106, MainSkill: '', BonusSkill: '', Notes: 'Skill Combination same as Ranged Attack. REQ. Aimed. vs. Defense Roll, Ranged.', isCombat: true },
-            { Action: 'Attack, Taunt', Page: 106, MainSkill: 'Any Melee (BC)', BonusSkill: 'Talk (SO)', Notes: 'vs. Willpower Roll.', isCombat: true },
-            { Action: 'Attack, Thrown Weapon', Page: 107, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
+            { Action: 'Attack, Taunt', Page: 106, MainSkill: 'Any Melee (BC)', BonusSkill: 'Talk (SO)', skillVariants: ['Med/Lrg Melee', 'Small & Unarmed Melee'], Notes: 'vs. Willpower Roll.', isCombat: true },
+            { Action: 'Attack, Thrown Weapon', Page: 107, MainSkill: 'Any Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', skillVariants: ['Med/Lrg Melee', 'Small & Unarmed Melee'], Notes: 'REQ. Full Attack. vs. Defense Roll, Dodge Roll, or Block.', isCombat: true },
             { Action: 'Attack, Trip (Unarmed)', Page: 107, MainSkill: '(Small &) Unarmed Melee (BC)', BonusSkill: 'Martial Arts (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll or Dodge Roll. See Armed variant.', isCombat: true },
             { Action: 'Attack, Trip (Armed)', Page: 107, MainSkill: 'Med/Lrg Melee (BC)', BonusSkill: 'Melee Weapons Knowledge (KN)', Notes: 'REQ. Full Attack. vs. Defense Roll or Dodge Roll. See Unarmed variant.', isCombat: true },
             { Action: 'Attack, Tumble', Page: 107, MainSkill: 'Small & Unarmed Melee (BC)', BonusSkill: 'Quick Dodge (BC special)', Notes: 'REQ. Full Attack.', isCombat: true },
@@ -296,7 +296,7 @@
             { Action: 'Dodge Roll', Page: 119, MainSkill: 'Agility (BC)', BonusSkill: 'Reaction (RE)', Notes: '', isCombat: true },
             { Action: 'Dodge Roll, Quick', Page: 119, MainSkill: 'Quick Dodge (BC special)', BonusSkill: 'Reaction (RE)', Notes: '', isCombat: true },
             { Action: 'Initiative Adjust Roll', Page: 124, MainSkill: 'Endurance (PF)', BonusSkill: 'Will (RE)', Notes: '', isCombat: true },
-            { Action: 'Initiative Roll', Page: 124, MainSkill: 'Any Combat Skill (BC)', BonusSkill: 'Reaction (RE)', Notes: '', isCombat: true }
+            { Action: 'Initiative Roll', Page: 124, MainSkill: 'Any Combat Skill (BC)', BonusSkill: 'Reaction (RE)', Notes: 'Player may use any of their trained combat skills for the roll.', isCombat: true }
         ];
 
         const specializedSkills = new Set([
@@ -308,10 +308,10 @@
         const characterSchema = {
             "Strength (ST)": ["Daunt", "Brawn", "Toughness", "Terrifying Look"],
             "Physical Fitness (PF)": ["Flexibility", "Calmness", "Endurance", "Haste", "Power", "Constitution", "Sense", "Appearance"],
-            "Body Control (BC)": ["Agility", "Balance", "Crafting", "Dexterity", "Mobility", "Precision", "Swimming", "Any Melee", "Unarmed (Small) Melee", "Archery", "Crossbows", "Slings", "Blowguns", "Med/Lrg Melee", "Small & Unarmed Melee", "Any Combat Skill", "Sleight of Hand", "Quick Dodge", "Unarmed Master", "Ambidextrous", "Camouflage"],
+            "Body Control (BC)": ["Agility", "Balance", "Crafting", "Dexterity", "Mobility", "Precision", "Swimming", "Any Melee", "Archery", "Crossbows", "Slings", "Blowguns", "Med/Lrg Melee", "Small & Unarmed Melee", "Any Combat Skill", "Sleight of Hand", "Quick Dodge", "Unarmed Master", "Ambidextrous", "Camouflage"],
             "Reason (RE)": ["Idea", "Code Insight", "Item Insight", "Creature Insight", "Anatomy", "Perception", "Divine Insight", "Reaction", "Comprehend", "Will", "Hypnosis", "Introspection", "Intuition", "Motive Insight", "Logic Recall", "Recall", "Serenity", "Study", "Magic Insight"],
             "Social (SO)": ["Convince", "Perform", "Talk", "Empathy", "Leadership", "Patience", "Motivate", "Enhanced Leadership"],
-            "Knowledge (KN)": ["Item Knowledge", "Anatomy", "Melee Weapons Knowledge", "Food", "Alchemy", "Magic", "Poisons", "Metal Items Knowledge", "Cloth Items Knowledge", "Mechanical Devices", "Rite", "Wood, Item", "Medical", "Nature", "Public", "Law", "Interpreter", "Music Instrument", "Singing", "Motive Insight", "Languages", "Surgery", "Martial Arts", "Simple Ranged Weapon", "Mechanical Weapons", "Blowguns Knowledge"]
+            "Knowledge (KN)": ["Item Knowledge", "Anatomy", "Melee Weapons Knowledge", "Food", "Alchemy", "Magic", "Poisons", "Metal Items Knowledge", "Cloth Items Knowledge", "Mechanical Devices", "Rite", "Wood, Item", "Medical", "Nature", "Public", "Law", "Interpreter", "Music Instrument", "Singing", "Languages", "Surgery", "Martial Arts", "Simple Ranged Weapon", "Mechanical Weapons", "Blowguns Knowledge"]
         };
 
         // UPDATED: New success range table based on user feedback
@@ -391,7 +391,8 @@
         let characterData = {};
         let uiState = {
             expandedAction: null,
-            selectedActionIndex: -1 // -1 means no action is selected
+            selectedActionIndex: -1, // -1 means no action is selected
+            variantChoices: {} // NEW: Store user's choice for variant skills
         };
 
         // --- UTILITY FUNCTIONS ---
@@ -403,8 +404,6 @@
          * @returns {string|null} The attribute code or null if not found.
          */
         function getAttributeFromSkill(skill) {
-            // This regex looks for a two-letter uppercase code inside parentheses,
-            // optionally followed by the word "special". It only captures the two-letter code.
             const match = skill.match(/\(([A-Z]{2})(?: special)?\)/);
             return match ? match[1] : null;
         }
@@ -433,6 +432,43 @@
             return parseInt(characterData[key] || '0', 10);
         }
 
+        /**
+         * NEW: Centralized function to calculate metrics for a given skill combination.
+         */
+        function calculateMetricsForSkill(mainSkill, bonusSkill) {
+            if (!mainSkill) {
+                return { isRollable: false };
+            }
+
+            const mainSkillName = mainSkill.split(' (')[0];
+            let bonusSkillName = bonusSkill.split(' (')[0];
+
+            const isBonusSkillVariable = bonusSkill.toLowerCase().includes('any');
+            if (isBonusSkillVariable) {
+                bonusSkillName = 'Relevant Knowledge';
+            }
+
+            const mainSkillAttrAbbr = getAttributeFromSkill(mainSkill);
+            const fullMainSkillAttr = getFullAttributeName(mainSkillAttrAbbr);
+            const primarySkillRank = getCharValue(mainSkillName);
+            const secondarySkillRank = isBonusSkillVariable ? 0 : getCharValue(bonusSkillName);
+            const attributeScore = getCharValue(fullMainSkillAttr);
+            const dicePool = attributeScore + secondarySkillRank;
+
+            let successThreshold;
+            if (primarySkillRank === 0 && mainSkillAttrAbbr === 'KN') {
+                successThreshold = 10;
+            } else {
+                successThreshold = successRangeTable[primarySkillRank] || 11;
+            }
+
+            const singleDieSuccessChance = Math.max(0, (11 - successThreshold) / 10);
+            const avgSuccesses = dicePool * singleDieSuccessChance;
+
+            return { isRollable: true, dicePool, avgSuccesses, mainSkillName, bonusSkillName, fullMainSkillAttr, primarySkillRank, secondarySkillRank, attributeScore, successThreshold, isBonusSkillVariable };
+        }
+
+
         // --- DOM & RENDERING ---
         const characterSheetEl = document.getElementById('characterSheet');
         const actionListEl = document.getElementById('actionList');
@@ -446,7 +482,7 @@
             let html = '';
             for (const attribute in characterSchema) {
                 html += `
-                    <details class="bg-gray-700/50 rounded-lg mb-3">
+                    <details class="bg-gray-700/50 rounded-lg mb-3" open>
                         <summary class="font-bold text-lg cursor-pointer p-3 flex justify-between items-center">
                             <span>${attribute}</span>
                             <div class="flex items-center" onclick="event.stopPropagation()">
@@ -489,10 +525,7 @@
 
             const filteredActions = actionsData.filter(action => {
                 if (!searchTerm) return true;
-
-                if (searchTerm === 'combat' && action.isCombat) {
-                    return true;
-                }
+                if (searchTerm === 'combat' && action.isCombat) return true;
 
                 const actionText = (action.Action + ' ' + action.Notes).toLowerCase();
                 const mainSkillText = (action.MainSkill || '').toLowerCase();
@@ -506,47 +539,46 @@
             });
 
             const actionsWithMetrics = filteredActions.map(action => {
-                // Return a default structure for actions without skills
-                if (!action.MainSkill) {
-                    return { ...action, metrics: { isRollable: false } };
-                }
+                if (action.skillVariants && action.skillVariants.length > 0) {
+                    const mainSkillName = action.MainSkill.split(' (')[0];
+                    const allVariantNames = [mainSkillName, ...action.skillVariants];
+                    const uniqueVariantNames = [...new Set(allVariantNames)]; // Ensure no duplicates
 
-                const mainSkill = action.MainSkill;
-                const bonusSkill = action.BonusSkill;
-                const mainSkillName = mainSkill.split(' (')[0];
-                let bonusSkillName = bonusSkill.split(' (')[0];
+                    const calculatedVariants = uniqueVariantNames.map(variantSkillName => {
+                        const mainSkillAttrAbbr = getAttributeFromSkill(action.MainSkill);
+                        // Handle cases where the skill name might already have an attribute, though the data doesn't show this.
+                        const cleanVariantSkillName = variantSkillName.split(' (')[0];
+                        const variantMainSkill = `${cleanVariantSkillName} (${mainSkillAttrAbbr})`;
+                        const variantMetrics = calculateMetricsForSkill(variantMainSkill, action.BonusSkill);
+                        return { ...variantMetrics, variantSkillName: cleanVariantSkillName };
+                    });
 
-                const isBonusSkillVariable = bonusSkill.toLowerCase().includes('any');
-                if (isBonusSkillVariable) {
-                    bonusSkillName = 'Relevant Knowledge';
-                }
+                    // Determine the best or selected variant
+                    const userChoice = uiState.variantChoices[action.Action];
+                    let selectedVariant;
+                    if (userChoice) {
+                        selectedVariant = calculatedVariants.find(v => v.variantSkillName === userChoice);
+                    } else {
+                        // Find the best one if no choice has been made
+                        selectedVariant = calculatedVariants.reduce((best, current) => {
+                            return (current.avgSuccesses > best.avgSuccesses) ? current : best;
+                        }, calculatedVariants[0]);
+                    }
 
-                const mainSkillAttrAbbr = getAttributeFromSkill(mainSkill);
-                const fullMainSkillAttr = getFullAttributeName(mainSkillAttrAbbr);
-                const primarySkillRank = getCharValue(mainSkillName);
-                const secondarySkillRank = isBonusSkillVariable ? 0 : getCharValue(bonusSkillName);
-                const attributeScore = getCharValue(fullMainSkillAttr);
-                const dicePool = attributeScore + secondarySkillRank;
+                    return {
+                        ...action,
+                        metrics: selectedVariant,
+                        calculatedVariants
+                    };
 
-                let successThreshold;
-                if (primarySkillRank === 0 && mainSkillAttrAbbr === 'KN') {
-                    successThreshold = 10;
                 } else {
-                    successThreshold = successRangeTable[primarySkillRank] || 11;
+                    const metrics = calculateMetricsForSkill(action.MainSkill, action.BonusSkill);
+                    return { ...action, metrics };
                 }
-
-                const singleDieSuccessChance = Math.max(0, (11 - successThreshold) / 10);
-                const avgSuccesses = dicePool * singleDieSuccessChance;
-
-                return {
-                    ...action,
-                    metrics: { isRollable: true, dicePool, avgSuccesses, mainSkillName, bonusSkillName, fullMainSkillAttr, primarySkillRank, secondarySkillRank, attributeScore, successThreshold, isBonusSkillVariable }
-                };
             });
 
             actionsWithMetrics.sort((a, b) => {
                 if (sortBy === 'best') {
-                    // Handle non-rollable actions by pushing them to the bottom
                     const aValue = a.metrics.isRollable ? a.metrics.avgSuccesses : -1;
                     const bValue = b.metrics.isRollable ? b.metrics.avgSuccesses : -1;
                     return bValue - aValue;
@@ -584,9 +616,6 @@
 
             if (action.metrics.isRollable) {
                 const { metrics } = action;
-                const simplifiedMain = metrics.mainSkillName.replace(/\(.*\)/, '').trim();
-                const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
-                const bonusSkillDisplay = `${simplifiedBonus}${metrics.isBonusSkillVariable ? ' *' : ''}`;
 
                 headerRightHTML = `
                     <p class="font-semibold text-white">Dice Pool: ${metrics.dicePool}d10</p>
@@ -594,11 +623,26 @@
                         Success: ${metrics.successThreshold}+ (Avg: ${metrics.avgSuccesses.toFixed(2)})
                     </p>`;
 
-                skillLineHTML = `
-                    <div class="tooltip">
-                        <p class="text-sm text-gray-400">${simplifiedMain} + ${bonusSkillDisplay}</p>
-                        <span class="tooltiptext">${action.MainSkill} + ${action.BonusSkill}${metrics.isBonusSkillVariable ? ' (Using Rank 0)' : ''}</span>
-                    </div>`;
+                if (action.calculatedVariants) {
+                    const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
+                    skillLineHTML = `
+                        <div class="flex items-center gap-x-2 mt-1">
+                            <select class="skill-variant-selector bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm" data-action-name="${action.Action}">
+                                ${action.calculatedVariants.map(v => `<option value="${v.variantSkillName}" ${v.variantSkillName === metrics.mainSkillName ? 'selected' : ''}>${v.variantSkillName}</option>`).join('')}
+                            </select>
+                            <span class="text-sm text-gray-400">+ ${simplifiedBonus}</span>
+                        </div>
+                    `;
+                } else {
+                     const simplifiedMain = metrics.mainSkillName.replace(/\(.*\)/, '').trim();
+                    const simplifiedBonus = metrics.bonusSkillName.replace(/\(.*\)/, '').trim();
+                    const bonusSkillDisplay = `${simplifiedBonus}${metrics.isBonusSkillVariable ? ' *' : ''}`;
+                     skillLineHTML = `
+                        <div class="tooltip">
+                            <p class="text-sm text-gray-400">${simplifiedMain} + ${bonusSkillDisplay}</p>
+                            <span class="tooltiptext">${action.MainSkill} + ${action.BonusSkill}${metrics.isBonusSkillVariable ? ' (Using Rank 0)' : ''}</span>
+                        </div>`;
+                }
 
                 detailsHTML += `
                     <p class="mt-2"><strong class="text-gray-300">Page:</strong> ${action.Page || 'N/A'}</p>
@@ -614,7 +658,7 @@
             }
 
             return `
-                <div class="action-row bg-gray-800 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-700/80 ${isExpanded ? 'expanded' : ''} ${isSelected ? 'selected' : ''}" data-action-name="${action.Action}" id="action-row-${index}">
+                <div class="action-row bg-gray-800 rounded-lg transition-all duration-200 hover:bg-gray-700/80 ${isExpanded ? 'expanded' : ''} ${isSelected ? 'selected' : ''}" data-action-name="${action.Action}" id="action-row-${index}">
                     <div class="p-4">
                         <div class="grid grid-cols-2 gap-x-4">
                             <div>
@@ -625,7 +669,7 @@
                                 ${headerRightHTML}
                             </div>
                         </div>
-                        <div class="action-details mt-4 pt-4 border-t border-gray-700 text-sm">
+                        <div class="action-details mt-4 pt-4 border-t border-gray-700 text-sm" onclick="event.stopPropagation()">
                             ${detailsHTML}
                         </div>
                     </div>
@@ -636,10 +680,15 @@
 
         // --- EVENT HANDLERS & INITIALIZATION ---
 
-        /**
-         * Handles input changes on the character sheet.
-         * @param {Event} e - The input event.
-         */
+        function handleVariantChange(e) {
+            if (e.target.classList.contains('skill-variant-selector')) {
+                const actionName = e.target.dataset.actionName;
+                const selectedSkill = e.target.value;
+                uiState.variantChoices[actionName] = selectedSkill;
+                renderActionList();
+            }
+        }
+
         function handleCharacterDataChange(e) {
             if (e.target.matches('input[type="number"]')) {
                 const key = e.target.dataset.key;
@@ -650,21 +699,14 @@
             }
         }
 
-        /**
-         * Handles clicks on the action list to expand/collapse rows.
-         * @param {Event} e - The click event.
-         */
         function handleActionListClick(e) {
             const row = e.target.closest('.action-row');
+            const selector = e.target.closest('.skill-variant-selector');
+            if (selector) return; // Ignore clicks on the new dropdown
+
             if (row) {
                 const actionName = row.dataset.actionName;
-                // Toggle expansion
-                if (uiState.expandedAction === actionName) {
-                    uiState.expandedAction = null;
-                } else {
-                    uiState.expandedAction = actionName;
-                }
-                // Re-render to reflect the change
+                uiState.expandedAction = uiState.expandedAction === actionName ? null : actionName;
                 renderActionList();
             }
         }
@@ -677,29 +719,14 @@
             }
         }
 
-        /**
-         * Handles global key presses for search and navigation.
-         */
         function handleGlobalKeyDown(e) {
             const visibleActions = document.querySelectorAll('.action-row');
 
-            // Handle key presses while inside the search input
-            if (e.target.tagName === 'INPUT') {
-                switch (e.key) {
-                    case 'Escape':
-                        clearActionUiState();
-                        break;
-                    case 'ArrowDown':
-                        // NEW: Move focus from search to the list
-                        e.preventDefault();
-                        if (visibleActions.length > 0) {
-                            uiState.selectedActionIndex = 0;
-                            searchInputEl.blur(); // Unfocus the search bar
-                            renderActionList();
-                        }
-                        break;
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+                if (e.key === 'Escape') {
+                    clearActionUiState();
                 }
-                return; // Stop further execution for input fields
+                return;
             }
 
             if (visibleActions.length === 0 && e.key !== '/') return;
@@ -709,27 +736,23 @@
                     e.preventDefault();
                     searchInputEl.focus();
                     break;
-
                 case 'ArrowDown':
                     e.preventDefault();
                     uiState.selectedActionIndex = Math.min(uiState.selectedActionIndex + 1, visibleActions.length - 1);
                     renderActionList();
                     break;
-
                 case 'ArrowUp':
                     e.preventDefault();
-                    // Allow moving selection back to -1 (nothing selected)
                     if (uiState.selectedActionIndex > 0) {
                        uiState.selectedActionIndex--;
                     } else {
-                       uiState.selectedActionIndex = -1; // Deselect
-                       searchInputEl.focus(); // Return focus to search
+                       uiState.selectedActionIndex = -1;
+                       searchInputEl.focus();
                     }
                     renderActionList();
                     break;
-
                 case 'Enter':
-                case ' ': // Spacebar
+                case ' ':
                     if (uiState.selectedActionIndex !== -1) {
                         e.preventDefault();
                         const selectedRow = visibleActions[uiState.selectedActionIndex];
@@ -740,31 +763,27 @@
                         }
                     }
                     break;
-
-                // NEW: Logic for Left and Right arrows
                 case 'ArrowRight':
                      if (uiState.selectedActionIndex !== -1) {
                         e.preventDefault();
                         const selectedRow = visibleActions[uiState.selectedActionIndex];
                         if (selectedRow) {
                             const actionName = selectedRow.dataset.actionName;
-                            uiState.expandedAction = actionName; // Always expand
+                            uiState.expandedAction = actionName;
                             renderActionList();
                         }
                     }
                     break;
-
                 case 'ArrowLeft':
                      if (uiState.selectedActionIndex !== -1) {
                         e.preventDefault();
                         const selectedRow = visibleActions[uiState.selectedActionIndex];
                         if (selectedRow) {
-                            uiState.expandedAction = null; // Always collapse
+                            uiState.expandedAction = null;
                             renderActionList();
                         }
                     }
                     break;
-
                 case 'Escape':
                     e.preventDefault();
                     clearActionUiState();
@@ -776,18 +795,16 @@
             searchInputEl.value = '';
             uiState.selectedActionIndex = -1;
             uiState.expandedAction = null;
+            uiState.variantChoices = {};
             renderActionList();
         }
 
-        /**
-         * Loads character data from localStorage and sets defaults.
-         */
         function loadCharacterData() {
             const savedData = localStorage.getItem('insightCharacterData');
             if (savedData) {
                 characterData = JSON.parse(savedData);
             } else {
-                // NEW: Set default attribute scores to 3 if no data exists
+                characterData = {};
                 for (const attribute in characterSchema) {
                     if (attribute !== "Special") { // Don't give "Special" an attribute score
                        characterData[attribute] = 3;
@@ -803,19 +820,16 @@
         const importFileEl = document.getElementById('importFile');
         const resetBtn = document.getElementById('resetCharacterBtn');
 
-        // Toggle settings menu
         settingsMenuBtn.addEventListener('click', () => {
             settingsMenu.classList.toggle('hidden');
         });
 
-        // Hide menu if clicking outside
         document.addEventListener('click', (event) => {
             if (!settingsMenuBtn.contains(event.target) && !settingsMenu.contains(event.target)) {
                 settingsMenu.classList.add('hidden');
             }
         });
 
-        // Export functionality
         exportBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const dataStr = localStorage.getItem('insightCharacterData');
@@ -835,7 +849,6 @@
             settingsMenu.classList.add('hidden');
         });
 
-        // Import functionality
         importBtn.addEventListener('click', (e) => {
             e.preventDefault();
             importFileEl.click();
@@ -844,14 +857,11 @@
 
         importFileEl.addEventListener('change', (event) => {
             const file = event.target.files[0];
-            if (!file) {
-                return;
-            }
+            if (!file) return;
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
                     const importedData = JSON.parse(e.target.result);
-                    // Basic validation
                     if (typeof importedData === 'object' && importedData !== null) {
                         if (confirm('This will overwrite your current character data. Are you sure?')) {
                             localStorage.setItem('insightCharacterData', JSON.stringify(importedData));
@@ -866,29 +876,24 @@
                 } catch (error) {
                     alert('Error importing file: ' + error.message);
                 } finally {
-                    // Reset file input so the same file can be loaded again
                     importFileEl.value = '';
                 }
             };
             reader.readAsText(file);
         });
 
-        // Reset functionality
         resetBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (confirm('Are you sure you want to reset all character stats?')) {
                 localStorage.removeItem('insightCharacterData');
-                characterData = {}; // Clear the in-memory data
-                loadCharacterData(); // Reload with defaults
+                characterData = {};
+                loadCharacterData();
                 renderCharacterSheet();
                 renderActionList();
             }
             settingsMenu.classList.add('hidden');
         });
 
-        /**
-         * Initializes the application.
-         */
         function init() {
             loadCharacterData();
             renderCharacterSheet();
@@ -898,10 +903,10 @@
             characterSheetEl.addEventListener('input', handleCharacterDataChange);
             characterSheetEl.addEventListener('click', handleSkillClick);
             actionListEl.addEventListener('click', handleActionListClick);
+            actionListEl.addEventListener('change', handleVariantChange); // NEW
             searchInputEl.addEventListener('input', renderActionList);
             sortOrderEl.addEventListener('change', renderActionList);
 
-            // NEW: Event listener for the toggle button
             const toggleBtn = document.getElementById('toggleCharacterPanel');
             const characterPanel = document.getElementById('characterPanel');
             const actionListPanel = document.getElementById('actionListPanel');
@@ -917,11 +922,9 @@
                 }
             });
 
-            // Add this new line at the end of the init function
             document.addEventListener('keydown', handleGlobalKeyDown);
         }
 
-        // Start the app
         document.addEventListener('DOMContentLoaded', init);
 
     </script>
