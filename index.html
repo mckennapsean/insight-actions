@@ -539,6 +539,17 @@
             });
 
             const actionsWithMetrics = filteredActions.map(action => {
+                if (action.Action === 'Luck Roll') {
+                    return {
+                        ...action,
+                        metrics: {
+                            isRollable: true,
+                            dicePool: 1,
+                            avgSuccesses: 0.2, // Represents a 20% success chance (9+), for sorting
+                            mainSkillName: 'Luck'
+                        }
+                    };
+                }
                 if (action.skillVariants && action.skillVariants.length > 0) {
                     const mainSkillName = action.MainSkill.split(' (')[0];
                     const allVariantNames = [mainSkillName, ...action.skillVariants];
@@ -614,7 +625,15 @@
             let detailsHTML = `<p><strong class="text-gray-300">Notes:</strong> ${action.Notes || 'None'}</p>`;
             let skillLineHTML = '';
 
-            if (action.metrics.isRollable) {
+            if (action.Action === 'Luck Roll') {
+                headerRightHTML = `
+                    <p class="font-semibold text-white">Dice Pool: 1d10</p>
+                    <p class="text-sm text-gray-400">Success: 9+ (Avg: 0.20)</p>`;
+                detailsHTML = `<p><strong class="text-gray-300">Notes:</strong> ${action.Notes || 'None'}</p>
+                    <p class="mt-2 text-blue-300"><strong class="text-gray-300">Calculation:</strong> A raw d10 roll with no modifiers.</p>
+                    <p class="text-blue-300"><strong class="text-gray-300">Success on:</strong> 9 or 10 (20% chance).</p>`;
+                skillLineHTML = `<p class="text-sm text-gray-400 italic">Attribute-less</p>`;
+            } else if (action.metrics.isRollable) {
                 const { metrics } = action;
 
                 headerRightHTML = `
